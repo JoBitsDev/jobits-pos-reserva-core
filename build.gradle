@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
+
+group = 'com.jobits.pos'
+version = '0.0.1'
+
+repositories {
+    jcenter()
+}
+
+java {
+    modularity.inferModulePath = true
+}
+dependencies {
+    testImplementation     'junit:junit:4.13'
+    
+    implementation project (':clean-core-pitti')
+    
+    // https://mvnrepository.com/artifact/com.google.inject/guice
+    compile group: 'com.google.inject', name: 'guice', version: '4.2.3'
+    
+    // https://mvnrepository.com/artifact/org.flywaydb/flyway-core
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '7.4.0'
+    
+    //JDBC
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.10'
+    
+    // https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa
+    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa', version: '2.7.6'
+}

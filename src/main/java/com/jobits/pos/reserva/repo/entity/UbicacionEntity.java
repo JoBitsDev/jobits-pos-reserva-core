@@ -1,0 +1,166 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.jobits.pos.reserva.repo.entity;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ * 
+ * JoBits
+ * @author Jorge
+ * 
+ */
+@Entity
+@Table(name = "ubicacion")
+@NamedQueries({
+    @NamedQuery(name = "Ubicacion.findAll", query = "SELECT u FROM Ubicacion u"),
+    @NamedQuery(name = "Ubicacion.findByIdubicacion", query = "SELECT u FROM Ubicacion u WHERE u.idubicacion = :idubicacion"),
+    @NamedQuery(name = "Ubicacion.findByNombreubicacion", query = "SELECT u FROM Ubicacion u WHERE u.nombreubicacion = :nombreubicacion"),
+    @NamedQuery(name = "Ubicacion.findByColorubicacion", query = "SELECT u FROM Ubicacion u WHERE u.colorubicacion = :colorubicacion"),
+    @NamedQuery(name = "Ubicacion.findByEstadoubicacion", query = "SELECT u FROM Ubicacion u WHERE u.estadoubicacion = :estadoubicacion"),
+    @NamedQuery(name = "Ubicacion.findByDisponibledesde", query = "SELECT u FROM Ubicacion u WHERE u.disponibledesde = :disponibledesde"),
+    @NamedQuery(name = "Ubicacion.findByDisponiblehasta", query = "SELECT u FROM Ubicacion u WHERE u.disponiblehasta = :disponiblehasta")})
+public class UbicacionEntity implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "nombreubicacion")
+    private String nombreubicacion;
+    @Size(max = 255)
+    @Column(name = "colorubicacion")
+    private String colorubicacion;
+    @Size(max = 255)
+    @Column(name = "estadoubicacion")
+    private String estadoubicacion;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idubicacion")
+    private Long idubicacion;
+    @Column(name = "disponibledesde")
+    @Temporal(TemporalType.TIME)
+    private Date disponibledesde;
+    @Column(name = "disponiblehasta")
+    @Temporal(TemporalType.TIME)
+    private Date disponiblehasta;
+    @OneToMany(mappedBy = "ubicacionidubicacion")
+    private Collection<ReservaEntity> reservaCollection;
+
+    public UbicacionEntity() {
+    }
+
+    public UbicacionEntity(Long idubicacion) {
+        this.idubicacion = idubicacion;
+    }
+
+    public UbicacionEntity(Long idubicacion, String nombreubicacion) {
+        this.idubicacion = idubicacion;
+        this.nombreubicacion = nombreubicacion;
+    }
+
+    public Long getIdubicacion() {
+        return idubicacion;
+    }
+
+    public void setIdubicacion(Long idubicacion) {
+        this.idubicacion = idubicacion;
+    }
+
+
+    public Date getDisponibledesde() {
+        return disponibledesde;
+    }
+
+    public void setDisponibledesde(Date disponibledesde) {
+        this.disponibledesde = disponibledesde;
+    }
+
+    public Date getDisponiblehasta() {
+        return disponiblehasta;
+    }
+
+    public void setDisponiblehasta(Date disponiblehasta) {
+        this.disponiblehasta = disponiblehasta;
+    }
+
+    public Collection<ReservaEntity> getReservaCollection() {
+        return reservaCollection;
+    }
+
+    public void setReservaCollection(Collection<ReservaEntity> reservaCollection) {
+        this.reservaCollection = reservaCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idubicacion != null ? idubicacion.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof UbicacionEntity)) {
+            return false;
+        }
+        UbicacionEntity other = (UbicacionEntity) object;
+        if ((this.idubicacion == null && other.idubicacion != null) || (this.idubicacion != null && !this.idubicacion.equals(other.idubicacion))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.jobits.pos.reserva.core.domain.Ubicacion[ idubicacion=" + idubicacion + " ]";
+    }
+
+    public String getNombreubicacion() {
+        return nombreubicacion;
+    }
+
+    public void setNombreubicacion(String nombreubicacion) {
+        this.nombreubicacion = nombreubicacion;
+    }
+
+    public String getColorubicacion() {
+        return colorubicacion;
+    }
+
+    public void setColorubicacion(String colorubicacion) {
+        this.colorubicacion = colorubicacion;
+    }
+
+    public String getEstadoubicacion() {
+        return estadoubicacion;
+    }
+
+    public void setEstadoubicacion(String estadoubicacion) {
+        this.estadoubicacion = estadoubicacion;
+    }
+
+}
