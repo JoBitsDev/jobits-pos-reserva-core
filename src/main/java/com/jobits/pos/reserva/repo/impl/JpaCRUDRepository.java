@@ -30,20 +30,18 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
             .findAndAddModules().build();
     protected final Class<Entity> entityClass;
     protected final Class<Domain> domainClass;
-    protected EntityManagerFactory EMF;
-    protected EntityManager currentConnection;
     protected PropertyChangeSupport propertyChangeSupport;
+    protected ConnectionPool connPool;
 
     public JpaCRUDRepository(ConnectionPool connPool, Class<Domain> domainClass, Class<Entity> entityClass) {
-        this.EMF = connPool.getEMF();
-        this.currentConnection = EMF.createEntityManager();
         this.entityClass = entityClass;
         this.domainClass = domainClass;
         propertyChangeSupport = new PropertyChangeSupport(this);
+        this.connPool = connPool;
     }
 
     public EntityManager getEntityManager() {
-        return currentConnection;
+        return connPool.getCurrentConnection();
     }
 
     @Override
@@ -237,10 +235,9 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
             getEntityManager().getTransaction().rollback();
         }
 
-        EMF.getCache().evictAll();
-        currentConnection.flush();
-        currentConnection.clear();
-        currentConnection = EMF.createEntityManager();
+        getEntityManager().getEntityManagerFactory().getCache().evictAll();
+        getEntityManager().flush();
+        getEntityManager().clear();
         throw new PersistenceException(
                 "Error en base de datos. Reconectandose... \n " + e.getLocalizedMessage());
     }
