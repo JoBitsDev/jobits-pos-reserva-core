@@ -1,12 +1,14 @@
+plugins {
+    id 'org.javamodularity.moduleplugin' version '1.7.0' apply true
+}
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
 
-plugins {
-    id 'org.javamodularity.moduleplugin' version '1.7.0' apply true
-}
+description = 'JoBits POS:modulo-pos-reserva-core'
 
 group = 'com.jobits.pos'
+
 version = '0.0.1'
 
 repositories {
