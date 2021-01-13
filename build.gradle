@@ -2,6 +2,10 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
 
+plugins {
+    id 'org.javamodularity.moduleplugin' version '1.7.0' apply true
+}
+
 group = 'com.jobits.pos'
 version = '0.0.1'
 
@@ -9,9 +13,6 @@ repositories {
     jcenter()
 }
 
-java {
-    modularity.inferModulePath = true
-}
 dependencies {
     testImplementation     'junit:junit:4.13'
     
