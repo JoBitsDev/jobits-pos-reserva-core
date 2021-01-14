@@ -5,8 +5,9 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
+import com.jobits.pos.reserva.repo.util.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Cliente;
-import com.jobits.pos.reserva.core.module.ReservaRepoModule;
+import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import com.jobits.pos.reserva.core.repo.ClienteRepo;
 import com.jobits.pos.reserva.repo.entity.ClienteEntity;
 import com.jobits.pos.reserva.repo.util.ConnectionPool;

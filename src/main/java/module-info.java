@@ -15,4 +15,5 @@ module com.jobits.pos.reserva {
     exports com.jobits.pos.reserva.core.usecase;
     exports com.jobits.pos.reserva.core.repo;
     exports com.jobits.pos.reserva.core.module;
+    exports com.jobits.pos.reserva.repo.module;
 }

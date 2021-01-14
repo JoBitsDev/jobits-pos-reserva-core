@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jobits.pos.reserva.core.module;
+package com.jobits.pos.reserva.repo.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
