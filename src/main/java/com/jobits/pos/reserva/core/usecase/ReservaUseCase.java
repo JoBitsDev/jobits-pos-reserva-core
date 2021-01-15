@@ -26,5 +26,7 @@ public interface ReservaUseCase extends CRUDUseCase<Reserva> {
     public boolean checkIn(long idReserva, LocalDateTime checkinTime);
 
     public boolean checkOut(long idReserva, LocalDateTime checkoutTime);
+    
+    public boolean cancelar(long idReserva);
 
 }
