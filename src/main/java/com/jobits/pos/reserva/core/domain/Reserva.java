@@ -5,6 +5,7 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
+import com.root101.clean.core.domain.services.ResourceHandler;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -108,6 +109,7 @@ public class Reserva {
     }
 
     public void setEstado(String estado) {
+        validateEstado(estado);
         this.estado = estado;
     }
 
@@ -161,6 +163,15 @@ public class Reserva {
     @Override
     public String toString() {
         return fechareserva.format(formatter) + idreserva;
+    }
+
+    private void validateEstado(String estado) {
+        for (ReservaEstado v : ReservaEstado.values()) {
+            if (estado.equals(v.getRecursoEstado())) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
 
 }
