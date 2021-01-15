@@ -9,24 +9,25 @@ import com.jobits.pos.reserva.core.domain.Reserva;
 import com.jobits.pos.reserva.core.repo.ReservaRepo;
 import com.jobits.pos.reserva.core.usecase.ReservaUseCase;
 import com.root101.clean.core.app.usecase.DefaultCRUDUseCase;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements ReservaUseCase {
 
-    private final ReservaRepo reservaRepo;
+    private final ReservaRepo repo;
 
     public ReservaUseCaseImpl(ReservaRepo reservaRepo) {
-        this.reservaRepo = reservaRepo;
+        this.repo = reservaRepo;
     }
 
     @Override
     public Reserva create(Reserva newObject) throws RuntimeException {
         if (validarReserva(newObject)) {
-            reservaRepo.startTransaction();
+            repo.startTransaction();
             Reserva newReserva = super.create(newObject);
-            reservaRepo.startTransaction();
+            repo.startTransaction();
             return newReserva;
         }
         throw new IllegalArgumentException("Error creando el objeto");
@@ -35,16 +36,21 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     @Override
     public Reserva edit(Reserva objectToUpdate) throws RuntimeException {
         if (validarReserva(objectToUpdate)) {
-            reservaRepo.startTransaction();
+            repo.startTransaction();
             Reserva updatedReserva = super.edit(objectToUpdate);
-            reservaRepo.startTransaction();
+            repo.startTransaction();
             return updatedReserva;
         }
         throw new IllegalArgumentException("Error creando el objeto");
     }
 
+    @Override
+    public List<Reserva> getReservasDisponibles(LocalDate diaDereservas) {
+        return repo.findReservasDeDia(diaDereservas);
+    }
+
     private boolean validarReserva(Reserva reservaPorValidar) {
-        List<Reserva> reservas = reservaRepo.findReservasDeDia(reservaPorValidar.getFechareserva());
+        List<Reserva> reservas = repo.findReservasDeDia(reservaPorValidar.getFechareserva());
         for (int i = 0; i < reservas.size();) {
             if (reservaPorValidar.getUbicacionidubicacion() != null) {
                 if (!reservas.get(i).getUbicacionidubicacion().equals(reservaPorValidar.getUbicacionidubicacion())) {

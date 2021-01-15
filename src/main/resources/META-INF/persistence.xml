@@ -7,5 +7,4 @@
         <class>com.jobits.pos.domain.models.ReservaEntity</class>
         <class>com.jobits.pos.domain.models.UbicacionEntity</class>
     </persistence-unit>
-  </persistence-unit>
 </persistence>
