@@ -39,15 +39,6 @@ public class Ubicacion {
         this.nombreubicacion = nombreubicacion;
     }
 
-    public Ubicacion(Long idubicacion) {
-        this.idubicacion = idubicacion;
-    }
-
-    public Ubicacion(Long idubicacion, String nombreubicacion) {
-        this.idubicacion = idubicacion;
-        this.nombreubicacion = nombreubicacion;
-    }
-
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

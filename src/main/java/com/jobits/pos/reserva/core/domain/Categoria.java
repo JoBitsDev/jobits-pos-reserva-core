@@ -5,6 +5,9 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
+import com.jidesoft.plaf.basic.Resource;
+import com.root101.clean.core.domain.services.ResourceHandler;
+import java.awt.Color;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -19,17 +22,12 @@ public class Categoria {
     private Integer idcategoria;
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
     private String nombre;
-    private Integer color;
+    private Integer color = Integer.parseInt(ResourceHandler.getString("com.jobits.pos.reserva.default_color"));
 
     public Categoria() {
     }
 
-    public Categoria(Integer idcategoria) {
-        this.idcategoria = idcategoria;
-    }
-
-    public Categoria(Integer idcategoria, String nombre) {
-        this.idcategoria = idcategoria;
+    public Categoria(String nombre) {
         this.nombre = nombre;
     }
 

@@ -36,19 +36,18 @@ public class Reserva {
     private LocalDateTime checkout;
     private Cliente clienteidcliente;
     private Categoria categoriaidcategoria;
+    @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Ubicacion ubicacionidubicacion;
 
     public Reserva() {
     }
 
-    public Reserva(Long idreserva) {
-        this.idreserva = idreserva;
-    }
-
-    public Reserva(Long idreserva, LocalDate fechareserva, LocalTime horareserva) {
-        this.idreserva = idreserva;
+    public Reserva(LocalDate fechareserva, LocalTime horareserva,
+            Integer duracionreservasegundos, Ubicacion ubicacion) {
         this.fechareserva = fechareserva;
         this.horareserva = horareserva;
+        this.duracionreservasegundos = duracionreservasegundos;
+        this.ubicacionidubicacion = ubicacion;
     }
 
     @Override
