@@ -49,6 +49,7 @@ public class Reserva {
         this.horareserva = horareserva;
         this.duracionreservasegundos = duracionreservasegundos;
         this.ubicacionidubicacion = ubicacion;
+        setEstado(ReservaEstado.AGENDADA.getRecursoEstado());
     }
 
     @Override
