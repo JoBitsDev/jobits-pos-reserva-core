@@ -9,7 +9,9 @@ import com.jobits.pos.reserva.core.domain.Reserva;
 import com.jobits.pos.reserva.core.repo.ReservaRepo;
 import com.jobits.pos.reserva.core.usecase.ReservaUseCase;
 import com.root101.clean.core.app.usecase.DefaultCRUDUseCase;
+import com.root101.clean.core.domain.services.ResourceHandler;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -23,6 +25,32 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     @Override
+    public boolean checkIn(long idReserva, LocalDateTime checkinTime) {
+        Reserva r = repo.findBy(idReserva);
+        if (r == null) {
+            throw new IllegalArgumentException();
+        }
+        r.setCheckin(checkinTime);
+        repo.startTransaction();
+        repo.edit(r);
+        repo.commitTransaction();
+        return true;
+    }
+
+    @Override
+    public boolean checkOut(long idReserva, LocalDateTime checkoutTime) {
+        Reserva r = repo.findBy(idReserva);
+        if (r == null) {
+            throw new IllegalArgumentException();
+        }
+        r.setCheckin(checkoutTime);
+        repo.startTransaction();
+        repo.edit(r);
+        repo.commitTransaction();
+        return true;
+    }
+
+    @Override
     public Reserva create(Reserva newObject) throws RuntimeException {
         if (validarReserva(newObject)) {
             repo.startTransaction();
@@ -30,7 +58,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             repo.startTransaction();
             return newReserva;
         }
-        throw new IllegalArgumentException("Error creando el objeto");
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
     }
 
     @Override
@@ -41,7 +69,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             repo.startTransaction();
             return updatedReserva;
         }
-        throw new IllegalArgumentException("Error creando el objeto");
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
     }
 
     @Override
