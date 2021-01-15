@@ -69,7 +69,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (validarReserva(newObject)) {
             repo.startTransaction();
             Reserva newReserva = super.create(newObject);
-            repo.startTransaction();
+            repo.commitTransaction();
             return newReserva;
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
@@ -80,7 +80,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (validarReserva(objectToUpdate)) {
             repo.startTransaction();
             Reserva updatedReserva = super.edit(objectToUpdate);
-            repo.startTransaction();
+            repo.commitTransaction();
             return updatedReserva;
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
