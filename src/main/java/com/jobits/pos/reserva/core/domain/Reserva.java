@@ -77,6 +77,9 @@ public class Reserva {
     }
 
     public void setCheckin(LocalDateTime checkin) {
+        if (checkin != null) {
+            setEstado(ReservaEstado.CHEQUEADA.getRecursoEstado());
+        }
         this.checkin = checkin;
     }
 
@@ -85,6 +88,9 @@ public class Reserva {
     }
 
     public void setCheckout(LocalDateTime checkout) {
+        if (checkout != null) {
+            setEstado(ReservaEstado.COMPLETADA.getRecursoEstado());
+        }
         this.checkout = checkout;
     }
 
