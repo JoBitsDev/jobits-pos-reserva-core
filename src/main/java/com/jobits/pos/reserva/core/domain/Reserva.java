@@ -116,8 +116,7 @@ public class Reserva {
     }
 
     public void setEstado(String estado) {
-        validateEstado(estado);
-        this.estado = estado;
+        this.estado = validateEstado(estado);
     }
 
     public LocalDate getFechareserva() {
@@ -172,10 +171,10 @@ public class Reserva {
         return fechareserva.format(formatter) + idreserva;
     }
 
-    private void validateEstado(String estado) {
+    private String validateEstado(String estado) {
         for (ReservaEstado v : ReservaEstado.values()) {
             if (estado.equals(v.getRecursoEstado())) {
-                return;
+                return estado;
             }
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));

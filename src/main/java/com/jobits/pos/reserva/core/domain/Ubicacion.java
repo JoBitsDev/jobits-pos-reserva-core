@@ -24,7 +24,6 @@ public class Ubicacion {
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
     private String nombreubicacion;
 
-    private boolean disponible = true;
     private LocalTime disponibledesde = LocalTime.MIDNIGHT;
     private LocalTime disponiblehasta = LocalTime.MAX;
 
@@ -43,6 +42,7 @@ public class Ubicacion {
         this.nombreubicacion = nombreubicacion;
         this.disponibledesde = disponibledesde;
         this.disponiblehasta = disponiblehasta;
+        this.estadoubicacion = UbicacionEstado.HABILITADA.getEstado();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Ubicacion {
     }
 
     public void setEstadoubicacion(String estadoubicacion) {
-        this.estadoubicacion = estadoubicacion;
+        this.estadoubicacion = validateEstado(estadoubicacion);
     }
 
     public Long getIdubicacion() {
@@ -121,12 +121,13 @@ public class Ubicacion {
         return hash;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    private String validateEstado(String estado) {
+        for (UbicacionEstado v : UbicacionEstado.values()) {
+            if (estado.equals(v.getEstado())) {
+                return estado;
+            }
+        }
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
 
     @Override
