@@ -14,4 +14,8 @@ import com.root101.clean.core.app.usecase.CRUDUseCase;
  */
 public interface UbicacionUseCase extends CRUDUseCase<Ubicacion> {
 
+    public Ubicacion activarUbicacion(int idUbicacion);
+    
+    public Ubicacion desactivarUbicacion(int idUbicacion);
+    
 }
