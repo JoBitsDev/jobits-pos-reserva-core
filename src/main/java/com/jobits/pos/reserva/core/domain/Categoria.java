@@ -31,6 +31,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
+    public Categoria(String nombre, Integer color) {
+        this.nombre = nombre;
+        this.color = color;
+    }
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
