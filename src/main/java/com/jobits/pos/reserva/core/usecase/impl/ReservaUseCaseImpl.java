@@ -8,6 +8,7 @@ package com.jobits.pos.reserva.core.usecase.impl;
 import com.jobits.pos.reserva.core.domain.Reserva;
 import com.jobits.pos.reserva.core.domain.ReservaEstado;
 import com.jobits.pos.reserva.core.domain.UbicacionEstado;
+import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.core.repo.ReservaRepo;
 import com.jobits.pos.reserva.core.usecase.ReservaUseCase;
 import com.root101.clean.core.app.usecase.DefaultCRUDUseCase;
@@ -20,10 +21,10 @@ import java.util.List;
 
 public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements ReservaUseCase {
 
-    private final ReservaRepo repo;
+    private final ReservaRepo repo = ReservaCoreModule.getInstance().getImplementation(ReservaRepo.class);
 
-    public ReservaUseCaseImpl(ReservaRepo reservaRepo) {
-        this.repo = reservaRepo;
+    public ReservaUseCaseImpl() {
+        setRepo(repo);
     }
 
     @Override

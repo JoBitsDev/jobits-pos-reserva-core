@@ -16,8 +16,10 @@ import java.util.Optional;
 public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
         implements UbicacionUseCase {
 
+    UbicacionRepo repo = ReservaCoreModule.getInstance().getImplementation(UbicacionRepo.class);
+    
     public UbicacionUseCaseImpl() {
-        setRepo(ReservaCoreModule.getInstance().getImplementation(UbicacionRepo.class));
+        setRepo(repo);
     }
 
     @Override
