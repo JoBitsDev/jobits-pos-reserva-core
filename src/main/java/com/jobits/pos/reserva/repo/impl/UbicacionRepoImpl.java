@@ -7,7 +7,6 @@ package com.jobits.pos.reserva.repo.impl;
 
 import com.jobits.pos.reserva.repo.util.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Ubicacion;
-import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import com.jobits.pos.reserva.core.repo.UbicacionRepo;
 import com.jobits.pos.reserva.repo.entity.UbicacionEntity;
 import com.jobits.pos.reserva.repo.util.ConnectionPool;
@@ -18,6 +17,12 @@ public class UbicacionRepoImpl extends JpaCRUDRepository<Ubicacion, UbicacionEnt
 
     public UbicacionRepoImpl() {
         super(ConnectionPool.getInstance(), Ubicacion.class, UbicacionEntity.class);
+    }
+
+    @Override
+    public List<Ubicacion> findRange(int cantidad, int pagina) {
+        int[] range = {cantidad * pagina, (cantidad * pagina) + cantidad};
+        return findRange(range);
     }
 
 }

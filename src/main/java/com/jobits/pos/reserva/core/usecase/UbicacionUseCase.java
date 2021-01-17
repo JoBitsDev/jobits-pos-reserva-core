@@ -7,6 +7,7 @@ package com.jobits.pos.reserva.core.usecase;
 
 import com.jobits.pos.reserva.core.domain.Ubicacion;
 import com.root101.clean.core.app.usecase.CRUDUseCase;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface UbicacionUseCase extends CRUDUseCase<Ubicacion> {
     public Ubicacion activarUbicacion(int idUbicacion);
     
     public Ubicacion desactivarUbicacion(int idUbicacion);
+    
+    public List<Ubicacion> getUbicacaionesActivas(int cantidad,int pagina);
     
 }

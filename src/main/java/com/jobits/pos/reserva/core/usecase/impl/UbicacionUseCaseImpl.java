@@ -11,6 +11,8 @@ import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.core.repo.UbicacionRepo;
 import com.jobits.pos.reserva.core.usecase.UbicacionUseCase;
 import com.root101.clean.core.app.usecase.DefaultCRUDUseCase;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
@@ -34,6 +36,11 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
         Ubicacion u = Optional.ofNullable(findBy(idUbicacion)).orElseThrow();
         u.setEstadoubicacion(UbicacionEstado.INABILITADA.getEstado());
         return u;
+    }
+
+    @Override
+    public List<Ubicacion> getUbicacaionesActivas(int cantidad, int pagina) {
+      return repo.findRange(cantidad, pagina);
     }
 
 }
