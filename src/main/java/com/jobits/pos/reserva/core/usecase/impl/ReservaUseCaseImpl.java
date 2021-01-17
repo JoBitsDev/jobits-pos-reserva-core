@@ -7,6 +7,7 @@ package com.jobits.pos.reserva.core.usecase.impl;
 
 import com.jobits.pos.reserva.core.domain.Reserva;
 import com.jobits.pos.reserva.core.domain.ReservaEstado;
+import com.jobits.pos.reserva.core.domain.UbicacionEstado;
 import com.jobits.pos.reserva.core.repo.ReservaRepo;
 import com.jobits.pos.reserva.core.usecase.ReservaUseCase;
 import com.root101.clean.core.app.usecase.DefaultCRUDUseCase;
@@ -27,7 +28,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
 
     @Override
     public boolean cancelar(long idReserva) {
-         Reserva r = repo.findBy(idReserva);
+        Reserva r = repo.findBy(idReserva);
         if (r == null) {
             throw new IllegalArgumentException();
         }
@@ -95,15 +96,25 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         List<Reserva> reservas = repo.findReservasDeDia(reservaPorValidar.getFechareserva());
         for (int i = 0; i < reservas.size();) {
             if (reservaPorValidar.getUbicacionidubicacion() != null) {
+                if (reservaPorValidar.getUbicacionidubicacion()
+                        .getEstadoubicacion().equals(UbicacionEstado.INABILITADA.getEstado())) {
+                    throw new IllegalArgumentException(ResourceHandler
+                            .getString("msg.com.jobits.pos.reserva.core.domain.reserva_ubicacion_inhabilitada"));
+                }
                 if (!reservas.get(i).getUbicacionidubicacion().equals(reservaPorValidar.getUbicacionidubicacion())) {
                     reservas.remove(i);
                     continue;
                 }
             }
-            if (validarRangoFechas(reservas.get(i), reservaPorValidar)) {
-                reservas.remove(i);
-            } else {
-                throw new IllegalArgumentException("La reserva a crear causa conflictos con " + reservas.get(i) + " en el sistema");
+            if (reservas.get(i).getCategoriaidcategoria().equals(reservaPorValidar.getCategoriaidcategoria())) {
+                if (validarRangoFechas(reservas.get(i), reservaPorValidar)) {
+                    reservas.remove(i);
+                } else {
+                    throw new IllegalArgumentException(
+                            String.format(ResourceHandler
+                                    .getString("msg.com.jobits.pos.reserva.core.domain.reserva_fecha_invalida"),
+                                    reservas.get(i)));
+                }
             }
 
         }
