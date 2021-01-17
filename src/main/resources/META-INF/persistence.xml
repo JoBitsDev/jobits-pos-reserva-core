@@ -4,7 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>com.jobits.pos.reserva.repo.entity.CategoriaEntity</class>
         <class>com.jobits.pos.reserva.repo.entity.ClienteEntity</class>
-        <class>com.jobits.pos.domain.models.ReservaEntity</class>
-        <class>com.jobits.pos.domain.models.UbicacionEntity</class>
+        <class>com.jobits.pos.reserva.repo.entity.ReservaEntity</class>
+        <class>com.jobits.pos.reserva.repo.entity.UbicacionEntity</class>
     </persistence-unit>
 </persistence>
