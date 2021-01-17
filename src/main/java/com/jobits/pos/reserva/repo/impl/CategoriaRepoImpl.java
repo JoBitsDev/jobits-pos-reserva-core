@@ -16,8 +16,7 @@ public class CategoriaRepoImpl extends JpaCRUDRepository<Categoria, CategoriaEnt
         implements CategoriaRepo {
 
     public CategoriaRepoImpl() {
-        super(ReservaRepoModule.getInstance()
-                .getImplementation(ConnectionPool.class), Categoria.class, CategoriaEntity.class);
+        super(ConnectionPool.getInstance(), Categoria.class, CategoriaEntity.class);
     }
 
 }

@@ -18,8 +18,7 @@ public class ReservaRepoImpl extends JpaCRUDRepository<Reserva, ReservaEntity>
         implements ReservaRepo {
 
     public ReservaRepoImpl() {
-        super(ReservaRepoModule.getInstance()
-                .getImplementation(ConnectionPool.class), Reserva.class, ReservaEntity.class);
+        super(ConnectionPool.getInstance(), Reserva.class, ReservaEntity.class);
     }
 
     @Override

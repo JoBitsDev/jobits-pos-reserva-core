@@ -16,8 +16,7 @@ public class ClienteRepoImpl extends JpaCRUDRepository<Cliente, ClienteEntity>
         implements ClienteRepo {
 
     public ClienteRepoImpl() {
-        super(ReservaRepoModule.getInstance()
-                .getImplementation(ConnectionPool.class), Cliente.class, ClienteEntity.class);
+        super(ConnectionPool.getInstance(), Cliente.class, ClienteEntity.class);
     }
 
 }
