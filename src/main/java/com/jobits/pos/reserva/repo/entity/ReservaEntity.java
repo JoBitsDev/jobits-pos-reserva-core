@@ -7,6 +7,8 @@
 package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,29 +33,27 @@ import javax.validation.constraints.Size;
  * 
  */
 @Entity
-@Table(name = "reserva")
+@Table(name = "reserva",schema = "reserva")
 @NamedQueries({
-    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r"),
-    @NamedQuery(name = "Reserva.findByIdreserva", query = "SELECT r FROM Reserva r WHERE r.idreserva = :idreserva"),
-    @NamedQuery(name = "Reserva.findByFechareserva", query = "SELECT r FROM Reserva r WHERE r.fechareserva = :fechareserva"),
-    @NamedQuery(name = "Reserva.findByHorareserva", query = "SELECT r FROM Reserva r WHERE r.horareserva = :horareserva"),
-    @NamedQuery(name = "Reserva.findByDuracionreservasegundos", query = "SELECT r FROM Reserva r WHERE r.duracionreservasegundos = :duracionreservasegundos"),
-    @NamedQuery(name = "Reserva.findByEstado", query = "SELECT r FROM Reserva r WHERE r.estado = :estado"),
-    @NamedQuery(name = "Reserva.findByNotasreserva", query = "SELECT r FROM Reserva r WHERE r.notasreserva = :notasreserva"),
-    @NamedQuery(name = "Reserva.findByCheckin", query = "SELECT r FROM Reserva r WHERE r.checkin = :checkin"),
-    @NamedQuery(name = "Reserva.findByCheckout", query = "SELECT r FROM Reserva r WHERE r.checkout = :checkout")})
+    @NamedQuery(name = "ReservaEntity.findAll", query = "SELECT r FROM ReservaEntity r"),
+    @NamedQuery(name = "ReservaEntity.findByIdreserva", query = "SELECT r FROM ReservaEntity r WHERE r.idreserva = :idreserva"),
+    @NamedQuery(name = "ReservaEntity.findByFechareserva", query = "SELECT r FROM ReservaEntity r WHERE r.fechareserva = :fechareserva"),
+    @NamedQuery(name = "ReservaEntity.findByHorareserva", query = "SELECT r FROM ReservaEntity r WHERE r.horareserva = :horareserva"),
+    @NamedQuery(name = "ReservaEntity.findByDuracionreservasegundos", query = "SELECT r FROM ReservaEntity r WHERE r.duracionreservasegundos = :duracionreservasegundos"),
+    @NamedQuery(name = "ReservaEntity.findByEstado", query = "SELECT r FROM ReservaEntity r WHERE r.estado = :estado"),
+    @NamedQuery(name = "ReservaEntity.findByNotasreserva", query = "SELECT r FROM ReservaEntity r WHERE r.notasreserva = :notasreserva"),
+    @NamedQuery(name = "ReservaEntity.findByCheckin", query = "SELECT r FROM ReservaEntity r WHERE r.checkin = :checkin"),
+    @NamedQuery(name = "ReservaEntity.findByCheckout", query = "SELECT r FROM ReservaEntity r WHERE r.checkout = :checkout")})
 public class ReservaEntity implements Serializable {
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "fechareserva")
-    @Temporal(TemporalType.DATE)
-    private Date fechareserva;
+    private LocalDate fechareserva;
     @Basic(optional = false)
     @NotNull
     @Column(name = "horareserva")
-    @Temporal(TemporalType.TIME)
-    private Date horareserva;
+    private LocalTime horareserva;
     @Size(max = 255)
     @Column(name = "estado")
     private String estado;
@@ -70,11 +70,9 @@ public class ReservaEntity implements Serializable {
     @Column(name = "duracionreservasegundos")
     private Integer duracionreservasegundos;
     @Column(name = "checkin")
-    @Temporal(TemporalType.TIME)
-    private Date checkin;
+    private LocalTime checkin;
     @Column(name = "checkout")
-    @Temporal(TemporalType.TIME)
-    private Date checkout;
+    private LocalTime checkout;
     @JoinColumn(name = "categoriaidcategoria", referencedColumnName = "idcategoria")
     @ManyToOne
     private CategoriaEntity categoriaidcategoria;
@@ -92,7 +90,7 @@ public class ReservaEntity implements Serializable {
         this.idreserva = idreserva;
     }
 
-    public ReservaEntity(Long idreserva, Date fechareserva, Date horareserva) {
+    public ReservaEntity(Long idreserva, LocalDate fechareserva, LocalTime horareserva) {
         this.idreserva = idreserva;
         this.fechareserva = fechareserva;
         this.horareserva = horareserva;
@@ -116,19 +114,19 @@ public class ReservaEntity implements Serializable {
     }
 
 
-    public Date getCheckin() {
+    public LocalTime getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(Date checkin) {
+    public void setCheckin(LocalTime checkin) {
         this.checkin = checkin;
     }
 
-    public Date getCheckout() {
+    public LocalTime getCheckout() {
         return checkout;
     }
 
-    public void setCheckout(Date checkout) {
+    public void setCheckout(LocalTime checkout) {
         this.checkout = checkout;
     }
 
@@ -181,19 +179,19 @@ public class ReservaEntity implements Serializable {
         return "com.jobits.pos.reserva.core.domain.Reserva[ idreserva=" + idreserva + " ]";
     }
 
-    public Date getFechareserva() {
+    public LocalDate getFechareserva() {
         return fechareserva;
     }
 
-    public void setFechareserva(Date fechareserva) {
+    public void setFechareserva(LocalDate fechareserva) {
         this.fechareserva = fechareserva;
     }
 
-    public Date getHorareserva() {
+    public LocalTime getHorareserva() {
         return horareserva;
     }
 
-    public void setHorareserva(Date horareserva) {
+    public void setHorareserva(LocalTime horareserva) {
         this.horareserva = horareserva;
     }
 

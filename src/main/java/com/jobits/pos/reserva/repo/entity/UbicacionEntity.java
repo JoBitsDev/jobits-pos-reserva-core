@@ -7,6 +7,7 @@
 package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -31,15 +32,15 @@ import javax.validation.constraints.Size;
  * 
  */
 @Entity
-@Table(name = "ubicacion")
+@Table(name = "ubicacion", schema = "reserva")
 @NamedQueries({
-    @NamedQuery(name = "Ubicacion.findAll", query = "SELECT u FROM Ubicacion u"),
-    @NamedQuery(name = "Ubicacion.findByIdubicacion", query = "SELECT u FROM Ubicacion u WHERE u.idubicacion = :idubicacion"),
-    @NamedQuery(name = "Ubicacion.findByNombreubicacion", query = "SELECT u FROM Ubicacion u WHERE u.nombreubicacion = :nombreubicacion"),
-    @NamedQuery(name = "Ubicacion.findByColorubicacion", query = "SELECT u FROM Ubicacion u WHERE u.colorubicacion = :colorubicacion"),
-    @NamedQuery(name = "Ubicacion.findByEstadoubicacion", query = "SELECT u FROM Ubicacion u WHERE u.estadoubicacion = :estadoubicacion"),
-    @NamedQuery(name = "Ubicacion.findByDisponibledesde", query = "SELECT u FROM Ubicacion u WHERE u.disponibledesde = :disponibledesde"),
-    @NamedQuery(name = "Ubicacion.findByDisponiblehasta", query = "SELECT u FROM Ubicacion u WHERE u.disponiblehasta = :disponiblehasta")})
+    @NamedQuery(name = "UbicacionEntity.findAll", query = "SELECT u FROM UbicacionEntity u"),
+    @NamedQuery(name = "UbicacionEntity.findByIdubicacion", query = "SELECT u FROM UbicacionEntity u WHERE u.idubicacion = :idubicacion"),
+    @NamedQuery(name = "UbicacionEntity.findByNombreubicacion", query = "SELECT u FROM UbicacionEntity u WHERE u.nombreubicacion = :nombreubicacion"),
+    @NamedQuery(name = "UbicacionEntity.findByColorubicacion", query = "SELECT u FROM UbicacionEntity u WHERE u.colorubicacion = :colorubicacion"),
+    @NamedQuery(name = "UbicacionEntity.findByEstadoubicacion", query = "SELECT u FROM UbicacionEntity u WHERE u.estadoubicacion = :estadoubicacion"),
+    @NamedQuery(name = "UbicacionEntity.findByDisponibledesde", query = "SELECT u FROM UbicacionEntity u WHERE u.disponibledesde = :disponibledesde"),
+    @NamedQuery(name = "UbicacionEntity.findByDisponiblehasta", query = "SELECT u FROM UbicacionEntity u WHERE u.disponiblehasta = :disponiblehasta")})
 public class UbicacionEntity implements Serializable {
 
     @Basic(optional = false)
@@ -61,11 +62,9 @@ public class UbicacionEntity implements Serializable {
     @Column(name = "idubicacion")
     private Long idubicacion;
     @Column(name = "disponibledesde")
-    @Temporal(TemporalType.TIME)
-    private Date disponibledesde;
+    private LocalTime disponibledesde;
     @Column(name = "disponiblehasta")
-    @Temporal(TemporalType.TIME)
-    private Date disponiblehasta;
+    private LocalTime disponiblehasta;
     @OneToMany(mappedBy = "ubicacionidubicacion")
     private Collection<ReservaEntity> reservaCollection;
 
@@ -90,19 +89,19 @@ public class UbicacionEntity implements Serializable {
     }
 
 
-    public Date getDisponibledesde() {
+    public LocalTime getDisponibledesde() {
         return disponibledesde;
     }
 
-    public void setDisponibledesde(Date disponibledesde) {
+    public void setDisponibledesde(LocalTime disponibledesde) {
         this.disponibledesde = disponibledesde;
     }
 
-    public Date getDisponiblehasta() {
+    public LocalTime getDisponiblehasta() {
         return disponiblehasta;
     }
 
-    public void setDisponiblehasta(Date disponiblehasta) {
+    public void setDisponiblehasta(LocalTime disponiblehasta) {
         this.disponiblehasta = disponiblehasta;
     }
 

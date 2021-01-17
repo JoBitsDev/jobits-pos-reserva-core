@@ -28,12 +28,12 @@ import javax.validation.constraints.Size;
  * 
  */
 @Entity
-@Table(name = "categoria")
+@Table(name = "categoria", schema = "reserva")
 @NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByIdcategoria", query = "SELECT c FROM Categoria c WHERE c.idcategoria = :idcategoria"),
-    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Categoria.findByColor", query = "SELECT c FROM Categoria c WHERE c.color = :color")})
+    @NamedQuery(name = "CategoriaEntity.findAll", query = "SELECT c FROM CategoriaEntity c"),
+    @NamedQuery(name = "CategoriaEntity.findByIdcategoria", query = "SELECT c FROM CategoriaEntity c WHERE c.idcategoria = :idcategoria"),
+    @NamedQuery(name = "CategoriaEntity.findByNombre", query = "SELECT c FROM CategoriaEntity c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "CategoriaEntity.findByColor", query = "SELECT c FROM CategoriaEntity c WHERE c.color = :color")})
 public class CategoriaEntity implements Serializable {
 
     @Basic(optional = false)

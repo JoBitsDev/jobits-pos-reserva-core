@@ -2,6 +2,7 @@ package com.jobits.pos.reserva.repo.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.jobits.pos.reserva.repo.util.ConnectionPool;
 import java.beans.PropertyChangeListener;
@@ -25,9 +26,11 @@ import java.util.logging.Logger;
  */
 public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain> {
 
-    protected ObjectMapper mapper = JsonMapper.builder()
+    protected static ObjectMapper mapper = JsonMapper.builder()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .findAndAddModules().build();
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .findAndAddModules()
+            .build();
     protected final Class<Entity> entityClass;
     protected final Class<Domain> domainClass;
     protected PropertyChangeSupport propertyChangeSupport;
@@ -225,6 +228,7 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
             }
             return converter.from(entity);
         } catch (Exception e) {
+            e.printStackTrace();
             dbException(e);
         }
         return null;
