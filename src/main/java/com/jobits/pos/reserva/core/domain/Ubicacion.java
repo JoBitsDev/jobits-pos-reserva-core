@@ -25,9 +25,9 @@ public class Ubicacion {
     private String nombreubicacion;
 
     private LocalTime disponibledesde = LocalTime.MIDNIGHT;
-    private LocalTime disponiblehasta = LocalTime.MAX;
+    private LocalTime disponiblehasta = LocalTime.NOON;
 
-    private String estadoubicacion;
+    private String estadoubicacion = UbicacionEstado.HABILITADA.getEstado();
     private String colorubicacion = ResourceHandler.getString("com.jobits.pos.reserva.default_color");
     private Collection<Reserva> reservaCollection;
 
@@ -42,7 +42,6 @@ public class Ubicacion {
         this.nombreubicacion = nombreubicacion;
         this.disponibledesde = disponibledesde;
         this.disponiblehasta = disponiblehasta;
-        this.estadoubicacion = UbicacionEstado.HABILITADA.getEstado();
     }
 
     @Override
