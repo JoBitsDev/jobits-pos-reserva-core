@@ -25,7 +25,7 @@ public class ReservaRepoModule extends DefaultAbstractModule {
 
     public static final String MODULE_NAME = "Reserva Repo Module";
 
-    private final Injector inj = Guice.createInjector();
+    private final Injector inj = Guice.createInjector(new ReservaRepoInjectionConfig());
 
     private static ReservaRepoModule INSTANCE;
 
