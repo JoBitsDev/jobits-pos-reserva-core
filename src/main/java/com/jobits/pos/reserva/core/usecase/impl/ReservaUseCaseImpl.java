@@ -124,6 +124,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             }
 
         }
+        reservaPorValidar.validate();
         return reservas.isEmpty();
     }
 
