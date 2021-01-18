@@ -43,7 +43,7 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
         List<Ubicacion> r = repo.findAll();
         List<Ubicacion> ret = new ArrayList<>();
         for (Ubicacion u : r) {
-            if (u.getEstadoubicacion().equals(UbicacionEstado.HABILITADA)) {
+            if (u.getEstadoubicacion().equals(UbicacionEstado.HABILITADA.getEstado())) {
                 ret.add(u);
             }
         }
