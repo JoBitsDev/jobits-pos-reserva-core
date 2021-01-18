@@ -131,7 +131,7 @@ public class Ubicacion {
 
     @Override
     public String toString() {
-        return "com.jobits.pos.reserva.core.domain.Ubicacion[ idubicacion=" + idubicacion + " ]";
+        return nombreubicacion;
     }
 
 }
