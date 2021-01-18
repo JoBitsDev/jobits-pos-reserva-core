@@ -37,6 +37,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
+        firePropertyChange("cancelar", null, r);
         return true;
     }
 
@@ -50,6 +51,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
+        firePropertyChange("checkIn", null, r);
         return true;
     }
 
@@ -63,6 +65,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
+        firePropertyChange("checkOut", null, r);
         return true;
     }
 
@@ -72,6 +75,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             repo.startTransaction();
             Reserva newReserva = super.create(newObject);
             repo.commitTransaction();
+            firePropertyChange("create", null, newReserva);
             return newReserva;
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
@@ -83,6 +87,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             repo.startTransaction();
             Reserva updatedReserva = super.edit(objectToUpdate);
             repo.commitTransaction();
+            firePropertyChange("edit", null, updatedReserva);
             return updatedReserva;
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.error_creando_obj"));
