@@ -221,6 +221,7 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
                 case UPDATE:
                     getEntityManager().merge(entity);
                     firePropertyChange("UPDATE", null, entity);
+                    break;
                 case REFRESH:
                     getEntityManager().refresh(entity);
                     firePropertyChange("REFRESH", null, entity);
@@ -237,11 +238,9 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
     private void dbException(Exception e) {
         if (getEntityManager().getTransaction().isActive()) {
             getEntityManager().getTransaction().rollback();
+            getEntityManager().getEntityManagerFactory().getCache().evictAll();
+            getEntityManager().clear();
         }
-
-        getEntityManager().getEntityManagerFactory().getCache().evictAll();
-        getEntityManager().flush();
-        getEntityManager().clear();
         throw new PersistenceException(
                 "Error en base de datos. Reconectandose... \n " + e.getLocalizedMessage());
     }
