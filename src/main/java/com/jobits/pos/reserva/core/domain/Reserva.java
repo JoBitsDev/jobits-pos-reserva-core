@@ -6,11 +6,13 @@
 package com.jobits.pos.reserva.core.domain;
 
 import com.root101.clean.core.domain.services.ResourceHandler;
+import com.root101.clean.core.exceptions.ValidationException;
+import com.root101.clean.core.utils.validation.Validable;
+import com.root101.clean.core.utils.validation.ValidationResult;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author Jorge
  *
  */
-public class Reserva {
+public class Reserva implements Validable{
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
 
@@ -36,6 +38,7 @@ public class Reserva {
     private LocalDateTime checkin;
     private LocalDateTime checkout;
     private Cliente clienteidcliente;
+    @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Categoria categoriaidcategoria;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Ubicacion ubicacionidubicacion;
@@ -171,6 +174,14 @@ public class Reserva {
         return fechareserva.format(formatter) + idreserva;
     }
 
+    @Override
+    public ValidationResult validate() throws ValidationException {
+        ValidationResult v = new ValidationResult();
+        v.checkFromAnnotations(this);
+        v.throwException();
+        return v;
+    }
+
     private String validateEstado(String estado) {
         for (ReservaEstado v : ReservaEstado.values()) {
             if (estado.equals(v.getRecursoEstado())) {
@@ -179,5 +190,5 @@ public class Reserva {
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
-
+    
 }
