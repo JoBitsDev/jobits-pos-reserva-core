@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,16 +14,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * JoBits
+ *
  * @author Jorge
- * 
+ *
  */
 @Entity
 @Table(name = "cliente", schema = "reserva")
@@ -69,8 +67,6 @@ public class ClienteEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "idcliente")
     private Long idcliente;
-    @OneToMany(mappedBy = "clienteidcliente")
-    private Collection<ReservaEntity> reservaCollection;
 
     public ClienteEntity() {
     }
@@ -91,15 +87,6 @@ public class ClienteEntity implements Serializable {
 
     public void setIdcliente(Long idcliente) {
         this.idcliente = idcliente;
-    }
-
-
-    public Collection<ReservaEntity> getReservaCollection() {
-        return reservaCollection;
-    }
-
-    public void setReservaCollection(Collection<ReservaEntity> reservaCollection) {
-        this.reservaCollection = reservaCollection;
     }
 
     @Override

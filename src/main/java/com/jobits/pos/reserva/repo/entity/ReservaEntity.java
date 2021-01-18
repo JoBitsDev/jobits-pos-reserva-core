@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,19 +19,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * JoBits
+ *
  * @author Jorge
- * 
+ *
  */
 @Entity
-@Table(name = "reserva",schema = "reserva")
+@Table(name = "reserva", schema = "reserva")
 @NamedQueries({
     @NamedQuery(name = "ReservaEntity.findAll", query = "SELECT r FROM ReservaEntity r"),
     @NamedQuery(name = "ReservaEntity.findByIdreserva", query = "SELECT r FROM ReservaEntity r WHERE r.idreserva = :idreserva"),
@@ -104,7 +101,6 @@ public class ReservaEntity implements Serializable {
         this.idreserva = idreserva;
     }
 
-
     public Integer getDuracionreservasegundos() {
         return duracionreservasegundos;
     }
@@ -112,7 +108,6 @@ public class ReservaEntity implements Serializable {
     public void setDuracionreservasegundos(Integer duracionreservasegundos) {
         this.duracionreservasegundos = duracionreservasegundos;
     }
-
 
     public LocalTime getCheckin() {
         return checkin;
