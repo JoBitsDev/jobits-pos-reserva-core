@@ -19,7 +19,7 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
         implements UbicacionUseCase {
 
     UbicacionRepo repo = ReservaCoreModule.getInstance().getImplementation(UbicacionRepo.class);
-    
+
     public UbicacionUseCaseImpl() {
         setRepo(repo);
     }
@@ -40,7 +40,22 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
 
     @Override
     public List<Ubicacion> getUbicacaionesActivas(int cantidad, int pagina) {
-      return repo.findRange(cantidad, pagina);
+        List<Ubicacion> r = repo.findAll();
+        List<Ubicacion> ret = new ArrayList<>();
+        for (Ubicacion u : r) {
+            if (u.getEstadoubicacion().equals(UbicacionEstado.HABILITADA)) {
+                ret.add(u);
+            }
+        }
+        int offset = (cantidad * pagina) - cantidad;
+        while (offset > 0 && !ret.isEmpty()) {
+            ret.remove(0);
+            offset--;
+        }
+        if (ret.size() > cantidad) {
+            ret = ret.subList(0, cantidad);
+        }
+        return ret;
     }
 
 }
