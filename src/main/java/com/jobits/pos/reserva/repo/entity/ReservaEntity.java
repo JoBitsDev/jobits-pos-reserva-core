@@ -36,7 +36,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ReservaEntity.findByIdreserva", query = "SELECT r FROM ReservaEntity r WHERE r.idreserva = :idreserva"),
     @NamedQuery(name = "ReservaEntity.findByFechareserva", query = "SELECT r FROM ReservaEntity r WHERE r.fechareserva = :fechareserva"),
     @NamedQuery(name = "ReservaEntity.findByHorareserva", query = "SELECT r FROM ReservaEntity r WHERE r.horareserva = :horareserva"),
-    @NamedQuery(name = "ReservaEntity.findByDuracionreservasegundos", query = "SELECT r FROM ReservaEntity r WHERE r.duracionreservasegundos = :duracionreservasegundos"),
     @NamedQuery(name = "ReservaEntity.findByEstado", query = "SELECT r FROM ReservaEntity r WHERE r.estado = :estado"),
     @NamedQuery(name = "ReservaEntity.findByNotasreserva", query = "SELECT r FROM ReservaEntity r WHERE r.notasreserva = :notasreserva"),
     @NamedQuery(name = "ReservaEntity.findByCheckin", query = "SELECT r FROM ReservaEntity r WHERE r.checkin = :checkin"),
