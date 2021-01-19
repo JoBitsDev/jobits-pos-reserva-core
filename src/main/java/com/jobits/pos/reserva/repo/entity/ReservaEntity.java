@@ -65,7 +65,7 @@ public class ReservaEntity implements Serializable {
     @Column(name = "idreserva")
     private Integer idreserva;
     @Column(name = "duracionreservasegundos")
-    private Integer duracionreservasegundos;
+    private Integer duracionMinutos;
     @Column(name = "checkin")
     private LocalTime checkin;
     @Column(name = "checkout")
@@ -101,12 +101,12 @@ public class ReservaEntity implements Serializable {
         this.idreserva = idreserva;
     }
 
-    public Integer getDuracionreservasegundos() {
-        return duracionreservasegundos;
+    public Integer getDuracionMinutos() {
+        return duracionMinutos;
     }
 
-    public void setDuracionreservasegundos(Integer duracionreservasegundos) {
-        this.duracionreservasegundos = duracionreservasegundos;
+    public void setDuracionMinutos(Integer duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
     }
 
     public LocalTime getCheckin() {

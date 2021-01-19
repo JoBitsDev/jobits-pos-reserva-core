@@ -129,12 +129,12 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     private boolean validarRangoFechas(Reserva reserva, Reserva reservaPorValidar) {
-        LocalTime endTime = reserva.getHorareserva().plus(reservaPorValidar.getDuracionreservasegundos(), ChronoUnit.SECONDS);
+        LocalTime endTime = reserva.getHorareserva().plus(reservaPorValidar.getDuracionMinutos(), ChronoUnit.MINUTES);
         LocalTime startTime = reserva.getHorareserva();
 
         LocalTime auxStartTime = reservaPorValidar.getHorareserva();
         LocalTime auxEndTime = reservaPorValidar.getHorareserva()
-                .plus(reservaPorValidar.getDuracionreservasegundos(), ChronoUnit.SECONDS);
+                .plus(reservaPorValidar.getDuracionMinutos(), ChronoUnit.MINUTES);
 
         if (auxEndTime.isAfter(startTime) && auxEndTime.isBefore(endTime)) {
             return false;

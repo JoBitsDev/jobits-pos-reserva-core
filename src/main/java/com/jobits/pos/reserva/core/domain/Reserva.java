@@ -32,7 +32,7 @@ public class Reserva implements Validable{
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private LocalTime horareserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
-    private Integer duracionreservasegundos;
+    private Integer duracionMinutos;
     private String estado;
     private String notasreserva;
     private LocalDateTime checkin;
@@ -50,7 +50,7 @@ public class Reserva implements Validable{
             Integer duracionreservasegundos, Ubicacion ubicacion) {
         this.fechareserva = fechareserva;
         this.horareserva = horareserva;
-        this.duracionreservasegundos = duracionreservasegundos;
+        this.duracionMinutos = duracionreservasegundos;
         this.ubicacionidubicacion = ubicacion;
         setEstado(ReservaEstado.AGENDADA.getRecursoEstado());
     }
@@ -106,12 +106,12 @@ public class Reserva implements Validable{
         this.clienteidcliente = clienteidcliente;
     }
 
-    public Integer getDuracionreservasegundos() {
-        return duracionreservasegundos;
+    public Integer getDuracionMinutos() {
+        return duracionMinutos;
     }
 
-    public void setDuracionreservasegundos(Integer duracionreservasegundos) {
-        this.duracionreservasegundos = duracionreservasegundos;
+    public void setDuracionMinutos(Integer duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
     }
 
     public String getEstado() {
