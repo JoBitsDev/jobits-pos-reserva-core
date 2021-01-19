@@ -55,7 +55,7 @@ public class UbicacionEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idubicacion")
-    private Long idubicacion;
+    private Integer idubicacion;
     @Column(name = "disponibledesde")
     private LocalTime disponibledesde;
     @Column(name = "disponiblehasta")
@@ -64,20 +64,20 @@ public class UbicacionEntity implements Serializable {
     public UbicacionEntity() {
     }
 
-    public UbicacionEntity(Long idubicacion) {
+    public UbicacionEntity(Integer idubicacion) {
         this.idubicacion = idubicacion;
     }
 
-    public UbicacionEntity(Long idubicacion, String nombreubicacion) {
+    public UbicacionEntity(Integer idubicacion, String nombreubicacion) {
         this.idubicacion = idubicacion;
         this.nombreubicacion = nombreubicacion;
     }
 
-    public Long getIdubicacion() {
+    public Integer getIdubicacion() {
         return idubicacion;
     }
 
-    public void setIdubicacion(Long idubicacion) {
+    public void setIdubicacion(Integer idubicacion) {
         this.idubicacion = idubicacion;
     }
 

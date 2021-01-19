@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
  */
 public class Cliente {
 
-    private Long idcliente;
+    private Integer idcliente;
     @NotNull(message = "#msg.com.jobits.pos.nombre_nulo#")
     private String nombrecliente;
     @NotNull(message = "#msg.com.jobits.pos.apellido_nulo#")
@@ -67,11 +67,11 @@ public class Cliente {
         this.direccioncliente = direccioncliente;
     }
 
-    public Long getIdcliente() {
+    public Integer getIdcliente() {
         return idcliente;
     }
 
-    public void setIdcliente(Long idcliente) {
+    public void setIdcliente(Integer idcliente) {
         this.idcliente = idcliente;
     }
 

@@ -63,7 +63,7 @@ public class ReservaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idreserva")
-    private Long idreserva;
+    private Integer idreserva;
     @Column(name = "duracionreservasegundos")
     private Integer duracionreservasegundos;
     @Column(name = "checkin")
@@ -83,21 +83,21 @@ public class ReservaEntity implements Serializable {
     public ReservaEntity() {
     }
 
-    public ReservaEntity(Long idreserva) {
+    public ReservaEntity(Integer idreserva) {
         this.idreserva = idreserva;
     }
 
-    public ReservaEntity(Long idreserva, LocalDate fechareserva, LocalTime horareserva) {
+    public ReservaEntity(Integer idreserva, LocalDate fechareserva, LocalTime horareserva) {
         this.idreserva = idreserva;
         this.fechareserva = fechareserva;
         this.horareserva = horareserva;
     }
 
-    public Long getIdreserva() {
+    public Integer getIdreserva() {
         return idreserva;
     }
 
-    public void setIdreserva(Long idreserva) {
+    public void setIdreserva(Integer idreserva) {
         this.idreserva = idreserva;
     }
 

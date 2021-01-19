@@ -26,7 +26,7 @@ public class Reserva implements Validable{
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
 
-    private Long idreserva;
+    private Integer idreserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private LocalDate fechareserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
@@ -138,11 +138,11 @@ public class Reserva implements Validable{
         this.horareserva = horareserva;
     }
 
-    public Long getIdreserva() {
+    public Integer getIdreserva() {
         return idreserva;
     }
 
-    public void setIdreserva(Long idreserva) {
+    public void setIdreserva(Integer idreserva) {
         this.idreserva = idreserva;
     }
 

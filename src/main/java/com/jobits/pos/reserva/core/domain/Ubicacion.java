@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
  */
 public class Ubicacion {
 
-    private Long idubicacion;
+    private Integer idubicacion;
 
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
     private String nombreubicacion;
@@ -89,11 +89,11 @@ public class Ubicacion {
         this.estadoubicacion = validateEstado(estadoubicacion);
     }
 
-    public Long getIdubicacion() {
+    public Integer getIdubicacion() {
         return idubicacion;
     }
 
-    public void setIdubicacion(Long idubicacion) {
+    public void setIdubicacion(Integer idubicacion) {
         this.idubicacion = idubicacion;
     }
 

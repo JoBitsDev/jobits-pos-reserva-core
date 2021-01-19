@@ -66,26 +66,26 @@ public class ClienteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcliente")
-    private Long idcliente;
+    private Integer idcliente;
 
     public ClienteEntity() {
     }
 
-    public ClienteEntity(Long idcliente) {
+    public ClienteEntity(Integer idcliente) {
         this.idcliente = idcliente;
     }
 
-    public ClienteEntity(Long idcliente, String nombrecliente, String telefonocliente) {
+    public ClienteEntity(Integer idcliente, String nombrecliente, String telefonocliente) {
         this.idcliente = idcliente;
         this.nombrecliente = nombrecliente;
         this.telefonocliente = telefonocliente;
     }
 
-    public Long getIdcliente() {
+    public Integer getIdcliente() {
         return idcliente;
     }
 
-    public void setIdcliente(Long idcliente) {
+    public void setIdcliente(Integer idcliente) {
         this.idcliente = idcliente;
     }
 
