@@ -28,6 +28,7 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
     public Ubicacion activarUbicacion(int idUbicacion) {
         Ubicacion u = Optional.ofNullable(findBy(idUbicacion)).orElseThrow();
         u.setEstadoubicacion(UbicacionEstado.HABILITADA.getEstado());
+        edit(u);
         return u;
     }
 
@@ -35,6 +36,7 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
     public Ubicacion desactivarUbicacion(int idUbicacion) {
         Ubicacion u = Optional.ofNullable(findBy(idUbicacion)).orElseThrow();
         u.setEstadoubicacion(UbicacionEstado.INABILITADA.getEstado());
+        edit(u);
         return u;
     }
 
