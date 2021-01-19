@@ -5,9 +5,7 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
-import com.jidesoft.plaf.basic.Resource;
 import com.root101.clean.core.domain.services.ResourceHandler;
-import java.awt.Color;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -35,7 +33,7 @@ public class Categoria {
         this.nombre = nombre;
         this.color = color;
     }
-    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -82,7 +80,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return nombre + "(" + idcategoria + ")";
+        return "(" + idcategoria + ") " + nombre;
     }
 
 }
