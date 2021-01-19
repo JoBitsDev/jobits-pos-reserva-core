@@ -64,7 +64,7 @@ public class ReservaEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "idreserva")
     private Integer idreserva;
-    @Column(name = "duracionreservasegundos")
+    @Column(name = "duracionreservaminutos")
     private Integer duracionMinutos;
     @Column(name = "checkin")
     private LocalTime checkin;
