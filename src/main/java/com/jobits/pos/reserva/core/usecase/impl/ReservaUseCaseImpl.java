@@ -99,6 +99,10 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     private boolean validarReserva(Reserva reservaPorValidar) {
+        if (reservaPorValidar.getHorareserva().isBefore(LocalTime.now().minusMinutes(10))) {
+            throw new IllegalArgumentException(
+                    ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.reserva_hora_incorrecta"));
+        }
         List<Reserva> reservas = repo.findReservasDeDia(reservaPorValidar.getFechareserva());
         reservas.remove(reservaPorValidar);
         for (int i = 0; i < reservas.size();) {
