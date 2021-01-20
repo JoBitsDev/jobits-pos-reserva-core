@@ -7,6 +7,7 @@ package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -66,9 +67,9 @@ public class ReservaEntity implements Serializable {
     @Column(name = "duracionreservaminutos")
     private Integer duracionMinutos;
     @Column(name = "checkin")
-    private LocalTime checkin;
+    private LocalDateTime checkin;
     @Column(name = "checkout")
-    private LocalTime checkout;
+    private LocalDateTime checkout;
     @JoinColumn(name = "categoriaidcategoria", referencedColumnName = "idcategoria")
     @ManyToOne
     private CategoriaEntity categoriaidcategoria;
@@ -108,19 +109,19 @@ public class ReservaEntity implements Serializable {
         this.duracionMinutos = duracionMinutos;
     }
 
-    public LocalTime getCheckin() {
+    public LocalDateTime getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(LocalTime checkin) {
+    public void setCheckin(LocalDateTime checkin) {
         this.checkin = checkin;
     }
 
-    public LocalTime getCheckout() {
+    public LocalDateTime getCheckout() {
         return checkout;
     }
 
-    public void setCheckout(LocalTime checkout) {
+    public void setCheckout(LocalDateTime checkout) {
         this.checkout = checkout;
     }
 
