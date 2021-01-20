@@ -14,6 +14,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import com.root101.clean.core.app.repo.CRUDRepository;
 import com.root101.clean.core.app.repo.Converter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -265,6 +267,20 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
         public Entity to(Domain domain) throws Exception {
             return (Entity) mapper.readValue(mapper.writeValueAsString(domain), entityClass);
         }
+
+        @Override
+        public List<Domain> from(List<Entity> list) throws Exception {
+            List<Domain> ret = Converter.super.from(list); //To change body of generated methods, choose Tools | Templates.
+            if (!ret.isEmpty()) {
+                Domain d = ret.get(0);
+                if (d instanceof Comparable) {
+                    Collections.sort((List<Comparable>) ret);
+
+                }
+            }
+            return ret;
+        }
+
     };
 
 }
