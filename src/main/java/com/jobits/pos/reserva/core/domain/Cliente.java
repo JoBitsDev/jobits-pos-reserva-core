@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  * @author Jorge
  *
  */
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
 
     private Integer idcliente;
     @NotNull(message = "#msg.com.jobits.pos.nombre_nulo#")
@@ -36,6 +36,11 @@ public class Cliente {
     public Cliente(String nombrecliente, String telefonocliente) {
         this.nombrecliente = nombrecliente;
         this.telefonocliente = telefonocliente;
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return getIdcliente().compareTo(o.getIdcliente());
     }
 
     @Override

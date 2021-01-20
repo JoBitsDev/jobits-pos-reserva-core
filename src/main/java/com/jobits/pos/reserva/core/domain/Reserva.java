@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * @author Jorge
  *
  */
-public class Reserva implements Validable{
+public class Reserva implements Validable, Comparable<Reserva> {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
 
@@ -53,6 +53,11 @@ public class Reserva implements Validable{
         this.duracionMinutos = duracionreservasegundos;
         this.ubicacionidubicacion = ubicacion;
         setEstado(ReservaEstado.AGENDADA.getRecursoEstado());
+    }
+
+    @Override
+    public int compareTo(Reserva o) {
+        return getIdreserva().compareTo(o.getIdreserva());
     }
 
     @Override
@@ -190,5 +195,5 @@ public class Reserva implements Validable{
         }
         throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
-    
+
 }

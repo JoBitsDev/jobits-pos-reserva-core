@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  * @author Jorge
  *
  */
-public class Categoria {
+public class Categoria implements Comparable<Categoria> {
 
     private Integer idcategoria;
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
@@ -32,6 +32,11 @@ public class Categoria {
     public Categoria(String nombre, Integer color) {
         this.nombre = nombre;
         this.color = color;
+    }
+
+    @Override
+    public int compareTo(Categoria o) {
+        return getIdcategoria().compareTo(o.getIdcategoria());
     }
 
     @Override

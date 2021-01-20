@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
  * @author Jorge
  *
  */
-public class Ubicacion {
+public class Ubicacion implements Comparable<Ubicacion> {
 
     private Integer idubicacion;
 
@@ -42,6 +42,11 @@ public class Ubicacion {
         this.nombreubicacion = nombreubicacion;
         this.disponibledesde = disponibledesde;
         this.disponiblehasta = disponiblehasta;
+    }
+
+    @Override
+    public int compareTo(Ubicacion o) {
+        return getIdubicacion().compareTo(o.getIdubicacion());
     }
 
     @Override
