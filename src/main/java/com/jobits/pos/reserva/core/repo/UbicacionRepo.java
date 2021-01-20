@@ -19,4 +19,6 @@ public interface UbicacionRepo extends com.root101.clean.core.app.repo.CRUDRepos
 
     public List<Ubicacion> findRange(int cantidad, int pagina);
 
+    public List<Ubicacion> findAllActivas();
+
 }

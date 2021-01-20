@@ -41,6 +41,11 @@ public class UbicacionUseCaseImpl extends DefaultCRUDUseCase<Ubicacion>
     }
 
     @Override
+    public int getCantidadUbicacionesActivas() {
+        return repo.findAllActivas().size();
+    }
+
+    @Override
     public List<Ubicacion> getUbicacaionesActivas(int cantidad, int pagina) {
         List<Ubicacion> r = repo.findAll();
         List<Ubicacion> ret = new ArrayList<>();

@@ -21,4 +21,6 @@ public interface UbicacionUseCase extends CRUDUseCase<Ubicacion> {
     
     public List<Ubicacion> getUbicacaionesActivas(int cantidad,int pagina);
     
+    public int getCantidadUbicacionesActivas();
+    
 }
