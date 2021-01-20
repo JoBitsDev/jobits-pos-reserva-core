@@ -28,7 +28,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     @Override
-    public boolean cancelar(long idReserva) {
+    public boolean cancelar(int idReserva) {
         Reserva r = repo.findBy(idReserva);
         if (r == null) {
             throw new IllegalArgumentException();
@@ -42,7 +42,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     @Override
-    public boolean checkIn(long idReserva, LocalDateTime checkinTime) {
+    public boolean checkIn(int idReserva, LocalDateTime checkinTime) {
         Reserva r = repo.findBy(idReserva);
         if (r == null || r.getEstado().equals(ReservaEstado.CONCELADA.getRecursoEstado())) {
             throw new IllegalArgumentException();
@@ -56,7 +56,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     @Override
-    public boolean checkOut(long idReserva, LocalDateTime checkoutTime) {
+    public boolean checkOut(int idReserva, LocalDateTime checkoutTime) {
         Reserva r = repo.findBy(idReserva);
         if (r == null || r.getEstado().equals(ReservaEstado.CONCELADA.getRecursoEstado())) {
             throw new IllegalArgumentException();
