@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  * @author Jorge
  *
  */
-public class Cliente implements Comparable<Cliente>{
+public class Cliente implements Comparable<Cliente> {
 
     private Integer idcliente;
     @NotNull(message = "#msg.com.jobits.pos.nombre_nulo#")
@@ -129,7 +129,7 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public String toString() {
-        return "com.jobits.pos.reserva.core.domain.Cliente[ idcliente=" + idcliente + " ]";
+        return nombrecliente + " " + apellidocliente;
     }
 
 }
