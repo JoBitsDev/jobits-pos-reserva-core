@@ -61,7 +61,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r == null || !r.getEstado().equals(ReservaEstado.CHEQUEADA.getRecursoEstado())) {
             throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkout_invalido");
         }
-        r.setCheckin(checkoutTime);
+        r.setCheckout(checkoutTime);
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
