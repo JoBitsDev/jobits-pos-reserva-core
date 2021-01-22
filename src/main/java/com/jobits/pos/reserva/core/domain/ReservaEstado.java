@@ -20,7 +20,7 @@ public enum ReservaEstado {
     AGENDADA("com.jobits.pos.reserva.domain.reserva_estado_agendada"),
     CHEQUEADA("com.jobits.pos.reserva.domain.reserva_estado_chequeada"),
     COMPLETADA("com.jobits.pos.reserva.domain.reserva_estado_completada"),
-    CONCELADA("com.jobits.pos.reserva.domain.reserva_estado_cancelada"),
+    CANCELADA("com.jobits.pos.reserva.domain.reserva_estado_cancelada"),
     RECHAZADA("com.jobits.pos.reserva.domain.reserva_estado_rechazada");
 
     /**
