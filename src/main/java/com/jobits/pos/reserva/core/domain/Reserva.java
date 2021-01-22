@@ -5,11 +5,14 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
+import com.root101.clean.core.domain.services.ResourceHandler;
+import com.root101.clean.core.exceptions.ValidationException;
+import com.root101.clean.core.utils.validation.Validable;
+import com.root101.clean.core.utils.validation.ValidationResult;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,36 +22,42 @@ import javax.validation.constraints.NotNull;
  * @author Jorge
  *
  */
-public class Reserva {
+public class Reserva implements Validable, Comparable<Reserva> {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
 
-    private Long idreserva;
+    private Integer idreserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private LocalDate fechareserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private LocalTime horareserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
-    private Integer duracionreservasegundos;
+    private Integer duracionMinutos;
     private String estado;
     private String notasreserva;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
     private Cliente clienteidcliente;
+    @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Categoria categoriaidcategoria;
+    @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Ubicacion ubicacionidubicacion;
 
     public Reserva() {
     }
 
-    public Reserva(Long idreserva) {
-        this.idreserva = idreserva;
-    }
-
-    public Reserva(Long idreserva, LocalDate fechareserva, LocalTime horareserva) {
-        this.idreserva = idreserva;
+    public Reserva(LocalDate fechareserva, LocalTime horareserva,
+            Integer duracionreservasegundos, Ubicacion ubicacion) {
         this.fechareserva = fechareserva;
         this.horareserva = horareserva;
+        this.duracionMinutos = duracionreservasegundos;
+        this.ubicacionidubicacion = ubicacion;
+        setEstado(ReservaEstado.AGENDADA.getRecursoEstado());
+    }
+
+    @Override
+    public int compareTo(Reserva o) {
+        return getIdreserva().compareTo(o.getIdreserva());
     }
 
     @Override
@@ -77,6 +86,9 @@ public class Reserva {
     }
 
     public void setCheckin(LocalDateTime checkin) {
+        if (checkin != null) {
+            setEstado(ReservaEstado.CHEQUEADA.getRecursoEstado());
+        }
         this.checkin = checkin;
     }
 
@@ -85,6 +97,9 @@ public class Reserva {
     }
 
     public void setCheckout(LocalDateTime checkout) {
+        if (checkout != null) {
+            setEstado(ReservaEstado.COMPLETADA.getRecursoEstado());
+        }
         this.checkout = checkout;
     }
 
@@ -96,12 +111,12 @@ public class Reserva {
         this.clienteidcliente = clienteidcliente;
     }
 
-    public Integer getDuracionreservasegundos() {
-        return duracionreservasegundos;
+    public Integer getDuracionMinutos() {
+        return duracionMinutos;
     }
 
-    public void setDuracionreservasegundos(Integer duracionreservasegundos) {
-        this.duracionreservasegundos = duracionreservasegundos;
+    public void setDuracionMinutos(Integer duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
     }
 
     public String getEstado() {
@@ -109,7 +124,7 @@ public class Reserva {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado = validateEstado(estado);
     }
 
     public LocalDate getFechareserva() {
@@ -128,11 +143,11 @@ public class Reserva {
         this.horareserva = horareserva;
     }
 
-    public Long getIdreserva() {
+    public Integer getIdreserva() {
         return idreserva;
     }
 
-    public void setIdreserva(Long idreserva) {
+    public void setIdreserva(Integer idreserva) {
         this.idreserva = idreserva;
     }
 
@@ -162,6 +177,23 @@ public class Reserva {
     @Override
     public String toString() {
         return fechareserva.format(formatter) + idreserva;
+    }
+
+    @Override
+    public ValidationResult validate() throws ValidationException {
+        ValidationResult v = new ValidationResult();
+        v.checkFromAnnotations(this);
+        v.throwException();
+        return v;
+    }
+
+    private String validateEstado(String estado) {
+        for (ReservaEstado v : ReservaEstado.values()) {
+            if (estado.equals(v.getRecursoEstado())) {
+                return estado;
+            }
+        }
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
 
 }

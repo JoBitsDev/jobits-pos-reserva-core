@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.jobits.pos.reserva.repo.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,28 +14,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 
+ *
  * JoBits
+ *
  * @author Jorge
- * 
+ *
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "cliente", schema = "reserva")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
-    @NamedQuery(name = "Cliente.findByNombrecliente", query = "SELECT c FROM Cliente c WHERE c.nombrecliente = :nombrecliente"),
-    @NamedQuery(name = "Cliente.findByTelefonocliente", query = "SELECT c FROM Cliente c WHERE c.telefonocliente = :telefonocliente"),
-    @NamedQuery(name = "Cliente.findByApellidocliente", query = "SELECT c FROM Cliente c WHERE c.apellidocliente = :apellidocliente"),
-    @NamedQuery(name = "Cliente.findByDireccioncliente", query = "SELECT c FROM Cliente c WHERE c.direccioncliente = :direccioncliente"),
-    @NamedQuery(name = "Cliente.findByMunicipiocliente", query = "SELECT c FROM Cliente c WHERE c.municipiocliente = :municipiocliente"),
-    @NamedQuery(name = "Cliente.findByProvinciacliente", query = "SELECT c FROM Cliente c WHERE c.provinciacliente = :provinciacliente")})
+    @NamedQuery(name = "ClienteEntity.findAll", query = "SELECT c FROM ClienteEntity c"),
+    @NamedQuery(name = "ClienteEntity.findByIdcliente", query = "SELECT c FROM ClienteEntity c WHERE c.idcliente = :idcliente"),
+    @NamedQuery(name = "ClienteEntity.findByNombrecliente", query = "SELECT c FROM ClienteEntity c WHERE c.nombrecliente = :nombrecliente"),
+    @NamedQuery(name = "ClienteEntity.findByTelefonocliente", query = "SELECT c FROM ClienteEntity c WHERE c.telefonocliente = :telefonocliente"),
+    @NamedQuery(name = "ClienteEntity.findByApellidocliente", query = "SELECT c FROM ClienteEntity c WHERE c.apellidocliente = :apellidocliente"),
+    @NamedQuery(name = "ClienteEntity.findByDireccioncliente", query = "SELECT c FROM ClienteEntity c WHERE c.direccioncliente = :direccioncliente"),
+    @NamedQuery(name = "ClienteEntity.findByMunicipiocliente", query = "SELECT c FROM ClienteEntity c WHERE c.municipiocliente = :municipiocliente"),
+    @NamedQuery(name = "ClienteEntity.findByProvinciacliente", query = "SELECT c FROM ClienteEntity c WHERE c.provinciacliente = :provinciacliente")})
 public class ClienteEntity implements Serializable {
 
     @Basic(optional = false)
@@ -68,38 +66,27 @@ public class ClienteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcliente")
-    private Long idcliente;
-    @OneToMany(mappedBy = "clienteidcliente")
-    private Collection<ReservaEntity> reservaCollection;
+    private Integer idcliente;
 
     public ClienteEntity() {
     }
 
-    public ClienteEntity(Long idcliente) {
+    public ClienteEntity(Integer idcliente) {
         this.idcliente = idcliente;
     }
 
-    public ClienteEntity(Long idcliente, String nombrecliente, String telefonocliente) {
+    public ClienteEntity(Integer idcliente, String nombrecliente, String telefonocliente) {
         this.idcliente = idcliente;
         this.nombrecliente = nombrecliente;
         this.telefonocliente = telefonocliente;
     }
 
-    public Long getIdcliente() {
+    public Integer getIdcliente() {
         return idcliente;
     }
 
-    public void setIdcliente(Long idcliente) {
+    public void setIdcliente(Integer idcliente) {
         this.idcliente = idcliente;
-    }
-
-
-    public Collection<ReservaEntity> getReservaCollection() {
-        return reservaCollection;
-    }
-
-    public void setReservaCollection(Collection<ReservaEntity> reservaCollection) {
-        this.reservaCollection = reservaCollection;
     }
 
     @Override

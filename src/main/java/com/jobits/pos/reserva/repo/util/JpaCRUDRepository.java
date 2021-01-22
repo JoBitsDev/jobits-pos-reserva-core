@@ -1,7 +1,8 @@
-package com.jobits.pos.reserva.repo.impl;
+package com.jobits.pos.reserva.repo.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.jobits.pos.reserva.repo.util.ConnectionPool;
 import java.beans.PropertyChangeListener;
@@ -13,6 +14,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import com.root101.clean.core.app.repo.CRUDRepository;
 import com.root101.clean.core.app.repo.Converter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,25 +28,25 @@ import java.util.logging.Logger;
  */
 public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain> {
 
-    protected ObjectMapper mapper = JsonMapper.builder()
+    protected static ObjectMapper mapper = JsonMapper.builder()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .findAndAddModules().build();
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .findAndAddModules()
+            .build();
     protected final Class<Entity> entityClass;
     protected final Class<Domain> domainClass;
-    protected EntityManagerFactory EMF;
-    protected EntityManager currentConnection;
     protected PropertyChangeSupport propertyChangeSupport;
+    protected ConnectionPool connPool;
 
     public JpaCRUDRepository(ConnectionPool connPool, Class<Domain> domainClass, Class<Entity> entityClass) {
-        this.EMF = connPool.getEMF();
-        this.currentConnection = EMF.createEntityManager();
         this.entityClass = entityClass;
         this.domainClass = domainClass;
         propertyChangeSupport = new PropertyChangeSupport(this);
+        this.connPool = connPool;
     }
 
     public EntityManager getEntityManager() {
-        return currentConnection;
+        return connPool.getCurrentConnection();
     }
 
     @Override
@@ -220,6 +223,7 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
                 case UPDATE:
                     getEntityManager().merge(entity);
                     firePropertyChange("UPDATE", null, entity);
+                    break;
                 case REFRESH:
                     getEntityManager().refresh(entity);
                     firePropertyChange("REFRESH", null, entity);
@@ -227,6 +231,7 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
             }
             return converter.from(entity);
         } catch (Exception e) {
+            e.printStackTrace();
             dbException(e);
         }
         return null;
@@ -235,12 +240,9 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
     private void dbException(Exception e) {
         if (getEntityManager().getTransaction().isActive()) {
             getEntityManager().getTransaction().rollback();
+            getEntityManager().getEntityManagerFactory().getCache().evictAll();
+            getEntityManager().clear();
         }
-
-        EMF.getCache().evictAll();
-        currentConnection.flush();
-        currentConnection.clear();
-        currentConnection = EMF.createEntityManager();
         throw new PersistenceException(
                 "Error en base de datos. Reconectandose... \n " + e.getLocalizedMessage());
     }
@@ -265,6 +267,20 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
         public Entity to(Domain domain) throws Exception {
             return (Entity) mapper.readValue(mapper.writeValueAsString(domain), entityClass);
         }
+
+        @Override
+        public List<Domain> from(List<Entity> list) throws Exception {
+            List<Domain> ret = Converter.super.from(list); //To change body of generated methods, choose Tools | Templates.
+            if (!ret.isEmpty()) {
+                Domain d = ret.get(0);
+                if (d instanceof Comparable) {
+                    Collections.sort((List<Comparable>) ret);
+
+                }
+            }
+            return ret;
+        }
+
     };
 
 }

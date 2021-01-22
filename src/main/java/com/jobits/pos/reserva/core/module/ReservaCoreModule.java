@@ -7,6 +7,7 @@ package com.jobits.pos.reserva.core.module;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.jobits.pos.reserva.repo.util.ResourceServiceImpl;
 import com.root101.clean.core.app.modules.AbstractModule;
 import com.root101.clean.core.app.modules.DefaultAbstractModule;
 import com.root101.clean.core.domain.services.ResourceHandler;
@@ -24,7 +25,7 @@ public class ReservaCoreModule extends DefaultAbstractModule {
 
     public static final String MODULE_NAME = "Reservas Core Module";
 
-    private final Injector inj = Guice.createInjector();
+    private final Injector inj = Guice.createInjector(new ReservaInjectionConfig());
 
     private static ReservaCoreModule INSTANCE;
 
@@ -49,6 +50,9 @@ public class ReservaCoreModule extends DefaultAbstractModule {
         INSTANCE = new ReservaCoreModule();
         INSTANCE.registerModule(repoModule);
         return getInstance();
+    }
+
+    private ReservaCoreModule() {
     }
 
     @Override

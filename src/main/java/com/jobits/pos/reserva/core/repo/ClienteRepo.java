@@ -6,7 +6,6 @@
 package com.jobits.pos.reserva.core.repo;
 
 import com.jobits.pos.reserva.core.domain.Cliente;
-import java.util.List;
 
 /**
  *
@@ -16,17 +15,5 @@ import java.util.List;
  *
  */
 public interface ClienteRepo extends com.root101.clean.core.app.repo.CRUDRepository<Cliente> {
-
-    public Cliente crearCliente(Cliente newCliente);
-    
-    public Cliente editarCliente(Cliente cliente);
-    
-    public Cliente borrarCliente(Cliente cliente);
-
-    public Cliente findCLiente(int idCliente);
-
-    public List<Cliente> findAllClientes();
-    
-    
 
 }

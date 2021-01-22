@@ -17,31 +17,36 @@ import javax.validation.constraints.NotBlank;
  * @author Jorge
  *
  */
-public class Ubicacion {
+public class Ubicacion implements Comparable<Ubicacion> {
 
-    private Long idubicacion;
+    private Integer idubicacion;
 
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
     private String nombreubicacion;
 
-    private boolean disponible = true;
     private LocalTime disponibledesde = LocalTime.MIDNIGHT;
-    private LocalTime disponiblehasta = LocalTime.MAX;
+    private LocalTime disponiblehasta = LocalTime.NOON;
 
-    private String estadoubicacion;
+    private String estadoubicacion = UbicacionEstado.HABILITADA.getEstado();
     private String colorubicacion = ResourceHandler.getString("com.jobits.pos.reserva.default_color");
     private Collection<Reserva> reservaCollection;
 
     public Ubicacion() {
     }
 
-    public Ubicacion(Long idubicacion) {
-        this.idubicacion = idubicacion;
+    public Ubicacion(String nombreubicacion) {
+        this.nombreubicacion = nombreubicacion;
     }
 
-    public Ubicacion(Long idubicacion, String nombreubicacion) {
-        this.idubicacion = idubicacion;
+    public Ubicacion(String nombreubicacion, LocalTime disponibledesde, LocalTime disponiblehasta) {
         this.nombreubicacion = nombreubicacion;
+        this.disponibledesde = disponibledesde;
+        this.disponiblehasta = disponiblehasta;
+    }
+
+    @Override
+    public int compareTo(Ubicacion o) {
+        return getIdubicacion().compareTo(o.getIdubicacion());
     }
 
     @Override
@@ -86,14 +91,14 @@ public class Ubicacion {
     }
 
     public void setEstadoubicacion(String estadoubicacion) {
-        this.estadoubicacion = estadoubicacion;
+        this.estadoubicacion = validateEstado(estadoubicacion);
     }
 
-    public Long getIdubicacion() {
+    public Integer getIdubicacion() {
         return idubicacion;
     }
 
-    public void setIdubicacion(Long idubicacion) {
+    public void setIdubicacion(Integer idubicacion) {
         this.idubicacion = idubicacion;
     }
 
@@ -120,17 +125,18 @@ public class Ubicacion {
         return hash;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    private String validateEstado(String estado) {
+        for (UbicacionEstado v : UbicacionEstado.values()) {
+            if (estado.equals(v.getEstado())) {
+                return estado;
+            }
+        }
+        throw new IllegalArgumentException(ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.estado_no_valido"));
     }
 
     @Override
     public String toString() {
-        return "com.jobits.pos.reserva.core.domain.Ubicacion[ idubicacion=" + idubicacion + " ]";
+        return nombreubicacion;
     }
 
 }

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jobits.pos.reserva.core.module;
+package com.jobits.pos.reserva.repo.module;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.root101.clean.core.app.modules.AbstractModule;
+import com.jobits.pos.reserva.repo.util.ResourceServiceImpl;
 import com.root101.clean.core.app.modules.DefaultAbstractModule;
 import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.clean.core.exceptions.AlreadyInitModule;
@@ -25,18 +25,13 @@ public class ReservaRepoModule extends DefaultAbstractModule {
 
     public static final String MODULE_NAME = "Reserva Repo Module";
 
-    private final Injector inj = Guice.createInjector();
+    private final Injector inj = Guice.createInjector(new ReservaRepoInjectionConfig());
 
     private static ReservaRepoModule INSTANCE;
 
-    public ReservaRepoModule() {
-
-        Flyway flyWay = Flyway.configure()
-                .dataSource("jdbc:postgresql://localhost:5432/Venavento", "postgres", "7965801")
-                .createSchemas(true)
-                .schemas("reserva")
-                .load();
-        flyWay.migrate();
+    private ReservaRepoModule() {
+        registerResources();
+        updateDB();
 
     }
 
@@ -70,6 +65,24 @@ public class ReservaRepoModule extends DefaultAbstractModule {
     @Override
     protected <T> T getOwnImplementation(Class<T> type) {
         return inj.getInstance(type);
+    }
+
+    private void registerResources() {
+        ResourceHandler.registerResourceService(new ResourceServiceImpl());
+    }
+
+    private void updateDB() {
+        String url = ResourceHandler.getString("com.jobits.pos.db.current_conn_url");
+        String user = ResourceHandler.getString("com.jobits.pos.db.current_conn_user");
+        String pass = ResourceHandler.getString("com.jobits.pos.db.current_conn_pass");
+        String schema = ResourceHandler.getString("com.jobits.pos.reserva.repo.db.shema");
+
+        Flyway flyWay = Flyway.configure()
+                .dataSource(url, user, pass)
+                .createSchemas(true)
+                .schemas(schema)
+                .load();
+        flyWay.migrate();
     }
 
 }

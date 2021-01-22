@@ -13,16 +13,16 @@ package com.jobits.pos.reserva.repo.util;
  */
 public class UbicacionConexionModel {
 
-    private static final String URL = "javax.persistence.jdbc.url",
-            USER = "javax.persistence.jdbc.user",
-            DRIVER = "javax.persistence.jdbc.driver",
-            PASSWORD = "javax.persistence.jdbc.password";
+    public static UbicacionConexionModel from(String nombre, String url, String usuario,
+            String contrasena, String driver, TipoUbicacion tipoUbicacion) {
+        return new UbicacionConexionModel(nombre, url, usuario, contrasena, driver, tipoUbicacion);
+    }
 
     public static UbicacionConexionModel[] getDefaultUbicaciones() {
         UbicacionConexionModel[] ret = new UbicacionConexionModel[4];
         for (int i = 0; i < ret.length; i++) {
-            UbicacionConexionModel ubicacionVacia = 
-                    new UbicacionConexionModel("<Nueva Ubicacion>", "0.0.0.0", "Nueva", "Nueva", "Nueva", TipoUbicacion.DESACTIVADA);
+            UbicacionConexionModel ubicacionVacia
+                    = new UbicacionConexionModel("<Nueva Ubicacion>", "0.0.0.0", "Nueva", "Nueva", "Nueva", TipoUbicacion.DESACTIVADA);
             ret[i] = ubicacionVacia;
         }
         return ret;

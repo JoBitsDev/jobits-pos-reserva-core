@@ -5,6 +5,7 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
+import com.root101.clean.core.domain.services.ResourceHandler;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -14,23 +15,28 @@ import javax.validation.constraints.NotBlank;
  * @author Jorge
  *
  */
-public class Categoria {
+public class Categoria implements Comparable<Categoria> {
 
     private Integer idcategoria;
     @NotBlank(message = "#msg.com.jobits.pos.campo_nulo#")
     private String nombre;
-    private Integer color;
+    private Integer color = Integer.parseInt(ResourceHandler.getString("com.jobits.pos.reserva.default_color"));
 
     public Categoria() {
     }
 
-    public Categoria(Integer idcategoria) {
-        this.idcategoria = idcategoria;
+    public Categoria(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Categoria(Integer idcategoria, String nombre) {
-        this.idcategoria = idcategoria;
+    public Categoria(String nombre, Integer color) {
         this.nombre = nombre;
+        this.color = color;
+    }
+
+    @Override
+    public int compareTo(Categoria o) {
+        return getIdcategoria().compareTo(o.getIdcategoria());
     }
 
     @Override
@@ -79,7 +85,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return nombre + "(" + idcategoria + ")";
+        return "(" + idcategoria + ") " + nombre;
     }
 
 }

@@ -22,9 +22,20 @@ public class ConnectionPool {
 
     private static ConnectionPool INSTANCE;
 
-    public static ConnectionPool getInstance(UbicacionConexionModel connectionProperties) {
+    public static ConnectionPool getInstance() {
+        String nombreUbicacion = ResourceHandler.getString("com.jobits.pos.db.current_conn_name");
+        String url = ResourceHandler.getString("com.jobits.pos.db.current_conn_url");
+        String user = ResourceHandler.getString("com.jobits.pos.db.current_conn_user");
+        String pass = ResourceHandler.getString("com.jobits.pos.db.current_conn_pass");
+        String driver = ResourceHandler.getString("com.jobits.pos.db.current_conn_driver");
+        String tipoUbicacion = ResourceHandler.getString("com.jobits.pos.db.current_conn_tipo");
+        UbicacionConexionModel model = UbicacionConexionModel.from(nombreUbicacion, url,
+                user, pass, driver,
+                UbicacionConexionModel.TipoUbicacion.valueOf(tipoUbicacion));
         if (INSTANCE == null) {
-            INSTANCE = new ConnectionPool(connectionProperties);
+            INSTANCE = new ConnectionPool(model);
+        } else {
+            INSTANCE.init(model);
         }
         return INSTANCE;
     }
