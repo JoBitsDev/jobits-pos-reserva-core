@@ -33,7 +33,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r == null) {
             throw new IllegalArgumentException();
         }
-        r.setEstado(ReservaEstado.CONCELADA.getRecursoEstado());
+        r.setEstado(ReservaEstado.CANCELADA.getRecursoEstado());
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
@@ -44,7 +44,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     @Override
     public boolean checkIn(int idReserva, LocalDateTime checkinTime) {
         Reserva r = repo.findBy(idReserva);
-        if (r == null || r.getEstado().equals(ReservaEstado.CONCELADA.getRecursoEstado())) {
+        if (r == null || r.getEstado().equals(ReservaEstado.CANCELADA.getRecursoEstado())) {
             throw new IllegalArgumentException();
         }
         r.setCheckin(checkinTime);
@@ -61,7 +61,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r == null || !r.getEstado().equals(ReservaEstado.CHEQUEADA.getRecursoEstado())) {
             throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkout_invalido");
         }
-        r.setCheckin(checkoutTime);
+        r.setCheckout(checkoutTime);
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();

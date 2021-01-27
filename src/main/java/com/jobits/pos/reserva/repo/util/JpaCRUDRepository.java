@@ -1,5 +1,6 @@
 package com.jobits.pos.reserva.repo.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import com.root101.clean.core.app.repo.CRUDRepository;
 import com.root101.clean.core.app.repo.Converter;
+import com.root101.clean.core.domain.services.ResourceHandler;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.logging.Level;
@@ -259,26 +261,41 @@ public class JpaCRUDRepository<Domain, Entity> implements CRUDRepository<Domain>
 
     protected Converter<Domain, Entity> converter = new Converter<Domain, Entity>() {
         @Override
-        public Domain from(Entity entity) throws Exception {
-            return (Domain) mapper.readValue(mapper.writeValueAsString(entity), domainClass);
-        }
-
-        @Override
-        public Entity to(Domain domain) throws Exception {
-            return (Entity) mapper.readValue(mapper.writeValueAsString(domain), entityClass);
-        }
-
-        @Override
-        public List<Domain> from(List<Entity> list) throws Exception {
-            List<Domain> ret = Converter.super.from(list); //To change body of generated methods, choose Tools | Templates.
-            if (!ret.isEmpty()) {
-                Domain d = ret.get(0);
-                if (d instanceof Comparable) {
-                    Collections.sort((List<Comparable>) ret);
-
-                }
+        public Domain from(Entity entity) {
+            try {
+                return (Domain) mapper.readValue(mapper.writeValueAsString(entity), domainClass);
+            } catch (JsonProcessingException ex) {
+                Logger.getLogger(JpaCRUDRepository.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalStateException(ResourceHandler.getString("msg.com.jobits.exception.parsing_exception"));
             }
-            return ret;
+        }
+
+        @Override
+        public Entity to(Domain domain) {
+            try {
+                return (Entity) mapper.readValue(mapper.writeValueAsString(domain), entityClass);
+            } catch (JsonProcessingException ex) {
+                Logger.getLogger(JpaCRUDRepository.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalStateException(ResourceHandler.getString("msg.com.jobits.exception.parsing_exception"));
+            }
+        }
+
+        @Override
+        public List<Domain> from(List<Entity> list) {
+            try {
+                List<Domain> ret = Converter.super.from(list); //To change body of generated methods, choose Tools | Templates.
+                if (!ret.isEmpty()) {
+                    Domain d = ret.get(0);
+                    if (d instanceof Comparable) {
+                        Collections.sort((List<Comparable>) ret);
+
+                    }
+                }
+                return ret;
+            } catch (Exception ex) {
+                Logger.getLogger(JpaCRUDRepository.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalStateException(ResourceHandler.getString("msg.com.jobits.exception.parsing_exception"));
+            }
         }
 
     };
