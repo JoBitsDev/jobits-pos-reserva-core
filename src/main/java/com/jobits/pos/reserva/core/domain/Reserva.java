@@ -42,6 +42,7 @@ public class Reserva implements Validable, Comparable<Reserva> {
     private Categoria categoriaidcategoria;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Ubicacion ubicacionidubicacion;
+    private String numeroPedidoAsociado;
 
     public Reserva() {
     }
@@ -165,6 +166,14 @@ public class Reserva implements Validable, Comparable<Reserva> {
 
     public void setUbicacionidubicacion(Ubicacion ubicacionidubicacion) {
         this.ubicacionidubicacion = ubicacionidubicacion;
+    }
+
+    public String getNumeroPedidoAsociado() {
+        return numeroPedidoAsociado;
+    }
+
+    public void setNumeroPedidoAsociado(String numeroPedidoAsociado) {
+        this.numeroPedidoAsociado = numeroPedidoAsociado;
     }
 
     @Override
