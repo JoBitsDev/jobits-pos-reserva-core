@@ -37,7 +37,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange(RESERVA_CANCELADA_PROPERTY, null, r);
+        firePropertyChange("RESERVA_CANCELADA_PROPERTY", null, r);
         return true;
     }
 
@@ -50,12 +50,12 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r.getFechareserva().until(checkinTime, ChronoUnit.DAYS) > 0) {
             throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkin_future");
         }
-        firePropertyChange(AFTER_CHECK_IN_PROPERTY, null, r);
+        firePropertyChange("BEFORE_CHECK_IN_PROPERTY", null, r);
         r.setCheckin(checkinTime);
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange(AFTER_CHECK_IN_PROPERTY, null, r);
+        firePropertyChange("AFTER_CHECK_IN_PROPERTY", null, r);
         return true;
     }
 
@@ -69,7 +69,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange(AFTER_CHECK_OUT_PROPERTY, null, r);
+        firePropertyChange("AFTER_CHECK_OUT_PROPERTY", null, r);
         return true;
     }
 
