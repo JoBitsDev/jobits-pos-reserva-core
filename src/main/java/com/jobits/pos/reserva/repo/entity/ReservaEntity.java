@@ -80,6 +80,9 @@ public class ReservaEntity implements Serializable {
     @ManyToOne
     private UbicacionEntity ubicacionidubicacion;
 
+    @Column(name = "nopedidoasociado")
+    private String numeroPedidoAsociado;
+
     public ReservaEntity() {
     }
 
@@ -147,6 +150,14 @@ public class ReservaEntity implements Serializable {
 
     public void setUbicacionidubicacion(UbicacionEntity ubicacionidubicacion) {
         this.ubicacionidubicacion = ubicacionidubicacion;
+    }
+
+    public String getNumeroPedidoAsociado() {
+        return numeroPedidoAsociado;
+    }
+
+    public void setNumeroPedidoAsociado(String numeroPedidoAsociado) {
+        this.numeroPedidoAsociado = numeroPedidoAsociado;
     }
 
     @Override

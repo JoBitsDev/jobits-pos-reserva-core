@@ -21,12 +21,18 @@ import java.util.List;
  */
 public interface ReservaUseCase extends CRUDUseCase<Reserva> {
 
+    public final String BEFORE_CHECK_IN_PROPERTY = "beforeCheckIn";
+    public final String AFTER_CHECK_IN_PROPERTY = "checkIn";
+    public final String BEFORE_CHECK_OUT_PROPERTY = "beforeCheckOut";
+    public final String AFTER_CHECK_OUT_PROPERTY = "checkOut";
+    public final String RESERVA_CANCELADA_PROPERTY = "cancelar";
+
     public List<Reserva> getReservasDisponibles(LocalDate diaDereservas);
 
     public boolean checkIn(int idReserva, LocalDateTime checkinTime);
 
     public boolean checkOut(int idReserva, LocalDateTime checkoutTime);
-    
+
     public boolean cancelar(int idReserva);
 
 }

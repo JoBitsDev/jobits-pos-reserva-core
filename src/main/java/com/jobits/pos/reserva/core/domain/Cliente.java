@@ -5,6 +5,7 @@
  */
 package com.jobits.pos.reserva.core.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.validation.constraints.*;
 
@@ -28,7 +29,7 @@ public class Cliente implements Comparable<Cliente> {
     private String direccioncliente;
     private String municipiocliente;
     private String provinciacliente;
-    private Collection<Reserva> reservaCollection;
+    private Collection<Reserva> reservaCollection = new ArrayList<>();
 
     public Cliente() {
     }

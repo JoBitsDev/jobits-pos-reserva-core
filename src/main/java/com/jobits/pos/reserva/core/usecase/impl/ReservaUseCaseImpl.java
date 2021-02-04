@@ -37,7 +37,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("cancelar", null, r);
+        firePropertyChange("RESERVA_CANCELADA_PROPERTY", null, r);
         return true;
     }
 
@@ -47,11 +47,15 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r == null || r.getEstado().equals(ReservaEstado.CANCELADA.getRecursoEstado())) {
             throw new IllegalArgumentException();
         }
+        if (r.getFechareserva().until(checkinTime, ChronoUnit.DAYS) > 0) {
+            throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkin_future");
+        }
+        firePropertyChange("BEFORE_CHECK_IN_PROPERTY", null, r);
         r.setCheckin(checkinTime);
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("checkIn", null, r);
+        firePropertyChange("AFTER_CHECK_IN_PROPERTY", null, r);
         return true;
     }
 
@@ -65,7 +69,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("checkOut", null, r);
+        firePropertyChange("AFTER_CHECK_OUT_PROPERTY", null, r);
         return true;
     }
 
@@ -99,7 +103,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     }
 
     private boolean validarReserva(Reserva reservaPorValidar) {
-        if (LocalDateTime.of(reservaPorValidar.getFechareserva(),reservaPorValidar.getHorareserva()).isBefore(LocalDateTime.now().minusMinutes(10))) {
+        if (LocalDateTime.of(reservaPorValidar.getFechareserva(), reservaPorValidar.getHorareserva()).isBefore(LocalDateTime.now().minusMinutes(10))) {
             throw new IllegalArgumentException(
                     ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.reserva_hora_incorrecta"));
         }
