@@ -9,10 +9,14 @@ description = 'JoBits POS:modulo-pos-reserva-core'
 
 group = 'com.jobits.pos'
 
-version = '1.0.3'
+version = '1.0.4'
 
 repositories {
     jcenter()
+}
+
+jar{
+    archiveBaseName = 'com.jobits.pos.reserva.core'    
 }
 
 dependencies {
