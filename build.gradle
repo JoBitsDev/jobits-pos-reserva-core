@@ -23,6 +23,7 @@ dependencies {
     testImplementation     'junit:junit:4.13'
     
     implementation project (':clean-core-pitti')
+    implementation project (':core')
     
     // https://mvnrepository.com/artifact/com.google.inject/guice
     compile group: 'com.google.inject', name: 'guice', version: '4.2.3'

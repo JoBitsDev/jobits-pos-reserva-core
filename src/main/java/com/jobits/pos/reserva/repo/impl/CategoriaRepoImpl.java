@@ -5,12 +5,11 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import com.jobits.pos.reserva.repo.util.JpaCRUDRepository;
+import org.jobits.app.repo.JpaCRUDRepository;
+import org.jobits.app.repo.ConnectionPool;
 import com.jobits.pos.reserva.core.domain.Categoria;
-import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import com.jobits.pos.reserva.core.repo.CategoriaRepo;
 import com.jobits.pos.reserva.repo.entity.CategoriaEntity;
-import com.jobits.pos.reserva.repo.util.ConnectionPool;
 
 public class CategoriaRepoImpl extends JpaCRUDRepository<Categoria, CategoriaEntity>
         implements CategoriaRepo {
