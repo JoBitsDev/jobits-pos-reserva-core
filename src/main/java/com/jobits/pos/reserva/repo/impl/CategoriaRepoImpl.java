@@ -6,16 +6,16 @@
 package com.jobits.pos.reserva.repo.impl;
 
 import org.jobits.app.repo.JpaCRUDRepository;
-import org.jobits.app.repo.ConnectionPool;
+import org.jobits.app.repo.DefaultConnectionPool;
 import com.jobits.pos.reserva.core.domain.Categoria;
 import com.jobits.pos.reserva.core.repo.CategoriaRepo;
 import com.jobits.pos.reserva.repo.entity.CategoriaEntity;
 
-public class CategoriaRepoImpl extends JpaCRUDRepository<Categoria, CategoriaEntity>
+public class CategoriaRepoImpl extends AbstractRepo<Categoria, CategoriaEntity>
         implements CategoriaRepo {
 
     public CategoriaRepoImpl() {
-        super(ConnectionPool.getInstance(), Categoria.class, CategoriaEntity.class);
+        super(Categoria.class, CategoriaEntity.class);
     }
 
 }
