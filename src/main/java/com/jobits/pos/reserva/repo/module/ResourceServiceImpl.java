@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jobits.pos.reserva.repo.util;
+package com.jobits.pos.reserva.repo.module;
 
 import com.root101.clean.core.domain.services.ResourceService;
 import com.root101.clean.core.domain.services.ResourceHandler;

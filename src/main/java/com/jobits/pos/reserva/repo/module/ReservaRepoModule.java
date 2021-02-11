@@ -7,12 +7,13 @@ package com.jobits.pos.reserva.repo.module;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.jobits.pos.reserva.repo.util.ResourceServiceImpl;
 import com.root101.clean.core.app.modules.DefaultAbstractModule;
 import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.clean.core.exceptions.AlreadyInitModule;
 import com.root101.clean.core.exceptions.NotInitModule;
 import org.flywaydb.core.Flyway;
+import org.jobits.app.repo.ConnectionPoolHandler;
+import org.jobits.app.repo.DefaultConnectionPool;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ReservaRepoModule extends DefaultAbstractModule {
 
     private ReservaRepoModule() {
         registerResources();
+        registerConnectionPool();
         updateDB();
 
     }
@@ -60,6 +62,13 @@ public class ReservaRepoModule extends DefaultAbstractModule {
     @Override
     public String getModuleName() {
         return MODULE_NAME;
+    }
+
+    private void registerConnectionPool() {
+        ConnectionPoolHandler.registerConnectionPoolService(getModuleName(),
+                DefaultConnectionPool.createPoolService(
+                        ResourceHandler.getString("com.jobits.pos.reserva.repol.util.persistence_unit_name")));
+
     }
 
     @Override

@@ -5,23 +5,23 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import com.jobits.pos.reserva.repo.util.JpaCRUDRepository;
+import org.jobits.app.repo.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Ubicacion;
 import com.jobits.pos.reserva.core.domain.UbicacionEstado;
 import com.jobits.pos.reserva.core.repo.UbicacionRepo;
 import com.jobits.pos.reserva.repo.entity.UbicacionEntity;
-import com.jobits.pos.reserva.repo.util.ConnectionPool;
+import org.jobits.app.repo.DefaultConnectionPool;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Query;
 
-public class UbicacionRepoImpl extends JpaCRUDRepository<Ubicacion, UbicacionEntity>
+public class UbicacionRepoImpl extends AbstractRepo<Ubicacion, UbicacionEntity>
         implements UbicacionRepo {
 
     public UbicacionRepoImpl() {
-        super(ConnectionPool.getInstance(), Ubicacion.class, UbicacionEntity.class);
+        super(Ubicacion.class, UbicacionEntity.class);
     }
 
     @Override

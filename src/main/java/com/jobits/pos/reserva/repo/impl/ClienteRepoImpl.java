@@ -5,18 +5,17 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import com.jobits.pos.reserva.repo.util.JpaCRUDRepository;
+import org.jobits.app.repo.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Cliente;
-import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import com.jobits.pos.reserva.core.repo.ClienteRepo;
 import com.jobits.pos.reserva.repo.entity.ClienteEntity;
-import com.jobits.pos.reserva.repo.util.ConnectionPool;
+import org.jobits.app.repo.DefaultConnectionPool;
 
-public class ClienteRepoImpl extends JpaCRUDRepository<Cliente, ClienteEntity>
+public class ClienteRepoImpl extends AbstractRepo<Cliente, ClienteEntity>
         implements ClienteRepo {
 
     public ClienteRepoImpl() {
-        super(ConnectionPool.getInstance(), Cliente.class, ClienteEntity.class);
+        super(Cliente.class, ClienteEntity.class);
     }
 
 }
