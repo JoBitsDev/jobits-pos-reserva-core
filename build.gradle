@@ -1,15 +1,14 @@
-plugins {
-    id 'org.javamodularity.moduleplugin' version '1.7.0' apply true
-}
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+apply plugin: 'org.javamodularity.moduleplugin'
+
 
 description = 'JoBits POS:modulo-pos-reserva-core'
 
 group = 'com.jobits.pos'
 
-version = '1.0.5'
+version = '1.0.6'
 
 repositories {
     jcenter()
@@ -22,7 +21,8 @@ jar{
 dependencies {
     testImplementation     'junit:junit:4.13'
     
-    implementation project (':clean-core-pitti')
+    implementation 'com.root101:clean-core:2.1.0.RELEASE.20210118'
+
     implementation project (':core')
     
     // https://mvnrepository.com/artifact/com.google.inject/guice
