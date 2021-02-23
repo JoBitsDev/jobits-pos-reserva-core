@@ -1,22 +1,6 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'maven-publish'
 apply plugin: 'org.javamodularity.moduleplugin'
 
-
 description = 'JoBits POS:modulo-pos-reserva-core'
-
-group = 'com.jobits.pos'
-
-version = '1.0.6'
-
-repositories {
-    jcenter()
-}
-
-jar{
-    archiveBaseName = 'com.jobits.pos.reserva.core'    
-}
 
 dependencies {
     testImplementation     'junit:junit:4.13'
