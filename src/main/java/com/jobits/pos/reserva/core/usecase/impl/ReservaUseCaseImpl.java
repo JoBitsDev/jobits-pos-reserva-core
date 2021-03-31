@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements ReservaUseCase {
 
@@ -33,11 +35,14 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r == null) {
             throw new IllegalArgumentException();
         }
+        if (r.getEstado().equals(ReservaEstado.COMPLETADA.getRecursoEstado())) {
+            throw new IllegalStateException("msg.com.jobits.pos.reserva.core.cancelar_reserva_completada");
+        }
         r.setEstado(ReservaEstado.CANCELADA.getRecursoEstado());
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("RESERVA_CANCELADA_PROPERTY", null, r);
+        firePropertyChange(RESERVA_CANCELADA_PROPERTY, null, r);
         return true;
     }
 
@@ -50,12 +55,12 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         if (r.getFechareserva().until(checkinTime, ChronoUnit.DAYS) > 0) {
             throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkin_future");
         }
-        firePropertyChange("BEFORE_CHECK_IN_PROPERTY", null, r);
+        firePropertyChange(BEFORE_CHECK_IN_PROPERTY, null, r);
         r.setCheckin(checkinTime);
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("AFTER_CHECK_IN_PROPERTY", null, r);
+        firePropertyChange(AFTER_CHECK_IN_PROPERTY, null, r);
         return true;
     }
 
@@ -69,7 +74,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
         repo.startTransaction();
         repo.edit(r);
         repo.commitTransaction();
-        firePropertyChange("AFTER_CHECK_OUT_PROPERTY", null, r);
+        firePropertyChange(AFTER_CHECK_OUT_PROPERTY, null, r);
         return true;
     }
 
@@ -99,7 +104,9 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
 
     @Override
     public List<Reserva> getReservasDisponibles(LocalDate diaDereservas) {
-        return repo.findReservasDeDia(diaDereservas);
+        List<Reserva> ret = repo.findReservasDeDia(diaDereservas);
+        return ret.stream().filter((Reserva t) 
+                -> !t.getEstado().equals(ReservaEstado.CANCELADA.getRecursoEstado())).collect(Collectors.toList());
     }
 
     private boolean validarReserva(Reserva reservaPorValidar) {
@@ -107,7 +114,7 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
             throw new IllegalArgumentException(
                     ResourceHandler.getString("msg.com.jobits.pos.reserva.core.domain.reserva_hora_incorrecta"));
         }
-        List<Reserva> reservas = repo.findReservasDeDia(reservaPorValidar.getFechareserva());
+        List<Reserva> reservas = getReservasDisponibles(reservaPorValidar.getFechareserva());
         reservas.remove(reservaPorValidar);
         for (int i = 0; i < reservas.size();) {
             if (reservaPorValidar.getUbicacionidubicacion()
