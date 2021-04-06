@@ -67,8 +67,11 @@ public class ReservaUseCaseImpl extends DefaultCRUDUseCase<Reserva> implements R
     @Override
     public boolean checkOut(int idReserva, LocalDateTime checkoutTime) {
         Reserva r = repo.findBy(idReserva);
-        if (r == null || !r.getEstado().equals(ReservaEstado.CHEQUEADA.getRecursoEstado())) {
+        if (r == null) {
             throw new IllegalArgumentException("msg.com.jobits.pos.core.domain.reserva_checkout_invalido");
+        }
+        if (!r.getEstado().equals(ReservaEstado.CHEQUEADA.getRecursoEstado())) {
+            return true;
         }
         r.setCheckout(checkoutTime);
         repo.startTransaction();
