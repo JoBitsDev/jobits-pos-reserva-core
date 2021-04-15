@@ -12,6 +12,7 @@ import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.clean.core.exceptions.AlreadyInitModule;
 import com.root101.clean.core.exceptions.NotInitModule;
 import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.FlywayException;
 import org.jobits.app.repo.ConnectionPoolHandler;
 import org.jobits.app.repo.DefaultConnectionPool;
 
@@ -91,7 +92,10 @@ public class ReservaRepoModule extends DefaultAbstractModule {
                 .createSchemas(true)
                 .schemas(schema)
                 .load();
-        flyWay.migrate();
+        try {
+            flyWay.migrate();
+        } catch (FlywayException ex) {
+        }
     }
 
 }
