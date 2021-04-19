@@ -5,12 +5,10 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import org.jobits.app.repo.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Ubicacion;
 import com.jobits.pos.reserva.core.domain.UbicacionEstado;
 import com.jobits.pos.reserva.core.repo.UbicacionRepo;
 import com.jobits.pos.reserva.repo.entity.UbicacionEntity;
-import org.jobits.app.repo.DefaultConnectionPool;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

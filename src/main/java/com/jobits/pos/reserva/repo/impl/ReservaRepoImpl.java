@@ -5,12 +5,9 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import org.jobits.app.repo.JpaCRUDRepository;
 import com.jobits.pos.reserva.core.domain.Reserva;
-import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import com.jobits.pos.reserva.core.repo.ReservaRepo;
 import com.jobits.pos.reserva.repo.entity.ReservaEntity;
-import org.jobits.app.repo.DefaultConnectionPool;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

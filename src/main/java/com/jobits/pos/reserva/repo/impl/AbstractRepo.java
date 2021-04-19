@@ -5,10 +5,9 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
-import com.root101.clean.core.domain.services.ResourceHandler;
-import org.jobits.app.repo.*;
+import org.jobits.db.pool.ConnectionPoolHandler;
+import org.jobits.db.pool.JpaCRUDRepository;
 
 /**
  *
