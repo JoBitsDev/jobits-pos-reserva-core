@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  */
 public class Reserva implements Validable, Comparable<Reserva> {
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd'/'MM'/'yy");
 
     private Integer idreserva;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")

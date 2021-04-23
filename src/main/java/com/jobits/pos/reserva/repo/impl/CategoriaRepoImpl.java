@@ -5,8 +5,6 @@
  */
 package com.jobits.pos.reserva.repo.impl;
 
-import org.jobits.app.repo.JpaCRUDRepository;
-import org.jobits.app.repo.DefaultConnectionPool;
 import com.jobits.pos.reserva.core.domain.Categoria;
 import com.jobits.pos.reserva.core.repo.CategoriaRepo;
 import com.jobits.pos.reserva.repo.entity.CategoriaEntity;
