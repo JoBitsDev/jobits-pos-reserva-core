@@ -13,7 +13,6 @@ import com.root101.clean.core.domain.services.ResourceHandler;
 import com.root101.clean.core.exceptions.AlreadyInitModule;
 import com.root101.clean.core.exceptions.NotInitModule;
 import org.jobits.db.pool.ConnectionPoolHandler;
-import org.jobits.db.pool.DefaultConnectionPool;
 import org.jobits.db.versioncontrol.DataVersionControlHandler;
 import org.jobits.db.versioncontrol.DataVersionControlService;
 
@@ -69,8 +68,7 @@ public class ReservaRepoModule extends DefaultAbstractModule {
 
     private void registerConnectionPool() {
         ConnectionPoolHandler.registerConnectionPoolService(getModuleName(),
-                DefaultConnectionPool.createPoolService(
-                        ResourceHandler.getString("com.jobits.pos.reserva.repol.util.persistence_unit_name")));
+                ResourceHandler.getString("com.jobits.pos.reserva.repol.util.persistence_unit_name"));
         String schema = ResourceHandler.getString("com.jobits.pos.reserva.repo.db.shema");
         String dir = "db/migration";
         DataVersionControlHandler.registerDataVersionControlService(DataVersionControlService.from(MODULE_NAME, dir, schema));
