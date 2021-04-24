@@ -7,7 +7,7 @@ package com.jobits.pos.reserva.repo.impl;
 
 import com.jobits.pos.reserva.repo.module.ReservaRepoModule;
 import org.jobits.db.pool.ConnectionPoolHandler;
-import org.jobits.db.pool.JpaCRUDRepository;
+import org.jobits.db.utils.JpaCRUDRepository;
 
 /**
  *
