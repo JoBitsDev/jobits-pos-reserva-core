@@ -5,10 +5,9 @@ description = 'JoBits POS:modulo-pos-reserva-core'
 dependencies {
     testImplementation     'junit:junit:4.13'
     
-    implementation 'com.root101:clean-core:2.1.0.RELEASE.20210118'
-    implementation 'org.jobits.db:version-control:1.+'
+    implementation 'com.root101.clean:com.root101.clean.core:2.1.3'
+    implementation 'org.jobits.db:org.jobits.db.versioncontrol:1.+'
 
-    // implementation project (':core')
     
     // https://mvnrepository.com/artifact/com.google.inject/guice
     compile group: 'com.google.inject', name: 'guice', version: '4.2.3'
