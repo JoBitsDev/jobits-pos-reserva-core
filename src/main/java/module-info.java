@@ -10,7 +10,7 @@ module com.jobits.pos.reserva {
     requires java.logging;
     requires java.desktop;
     requires com.root101clean.core;
-    requires org.joits.db;
+    requires org.jobits.db;
 
     exports com.jobits.pos.reserva.core.domain;
     exports com.jobits.pos.reserva.core.usecase;
