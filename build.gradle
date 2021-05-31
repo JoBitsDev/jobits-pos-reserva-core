@@ -1,6 +1,7 @@
 apply plugin: 'org.javamodularity.moduleplugin'
 
-description = 'JoBits POS:modulo-pos-reserva-core'
+
+description = 'JoBits POS:ReservaCore'
 
 dependencies {
     testImplementation     'junit:junit:4.13'
