@@ -37,7 +37,7 @@ public class Reserva implements Validable, Comparable<Reserva> {
     private String notasreserva;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
-    private Cliente clienteidcliente;
+    private int clienteidcliente;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
     private Categoria categoriaidcategoria;
     @NotNull(message = "#msg.com.jobits.pos.campo_nulo#")
@@ -104,11 +104,11 @@ public class Reserva implements Validable, Comparable<Reserva> {
         this.checkout = checkout;
     }
 
-    public Cliente getClienteidcliente() {
+    public int getClienteidcliente() {
         return clienteidcliente;
     }
 
-    public void setClienteidcliente(Cliente clienteidcliente) {
+    public void setClienteidcliente(int clienteidcliente) {
         this.clienteidcliente = clienteidcliente;
     }
 
