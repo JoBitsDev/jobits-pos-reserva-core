@@ -73,9 +73,8 @@ public class ReservaEntity implements Serializable {
     @JoinColumn(name = "categoriaidcategoria", referencedColumnName = "idcategoria")
     @ManyToOne
     private CategoriaEntity categoriaidcategoria;
-    @JoinColumn(name = "clienteidcliente", referencedColumnName = "idcliente")
-    @ManyToOne
-    private ClienteEntity clienteidcliente;
+    @Column(name = "clienteidcliente")
+    private int clienteidcliente;
     @JoinColumn(name = "ubicacionidubicacion", referencedColumnName = "idubicacion")
     @ManyToOne
     private UbicacionEntity ubicacionidubicacion;
@@ -136,11 +135,11 @@ public class ReservaEntity implements Serializable {
         this.categoriaidcategoria = categoriaidcategoria;
     }
 
-    public ClienteEntity getClienteidcliente() {
+    public int getClienteidcliente() {
         return clienteidcliente;
     }
 
-    public void setClienteidcliente(ClienteEntity clienteidcliente) {
+    public void setClienteidcliente(int clienteidcliente) {
         this.clienteidcliente = clienteidcliente;
     }
 
