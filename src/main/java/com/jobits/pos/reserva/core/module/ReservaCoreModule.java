@@ -38,16 +38,18 @@ public class ReservaCoreModule extends DefaultAbstractModule {
     /**
      * Usar init() sin repo por parametro para usar el repo por defecto
      *
-     * @param repoModule
+     * @param modules
      * @return
      * @Deprecated
      */
-    public static ReservaCoreModule init(AbstractModule repoModule) {
+    public static ReservaCoreModule init(AbstractModule... modules) {
         if (INSTANCE != null) {
             throw new AlreadyInitModule(ResourceHandler.getString("com.jobits.pos.reserva.name"));
         }
         INSTANCE = new ReservaCoreModule();
-        INSTANCE.registerModule(repoModule);
+        for (AbstractModule m : modules) {
+            INSTANCE.registerModule(m);
+        }
         return getInstance();
     }
 

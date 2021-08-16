@@ -7,7 +7,7 @@ dependencies {
     testImplementation     'junit:junit:4.13'
     
     implementation 'com.root101.clean:com.root101.clean.core:2.1.6'
-    implementation 'org.jobits.db:org.jobits.db.versioncontrol:1.1.6'
+    implementation 'org.jobits.db:org.jobits.db.versioncontrol:1.1.8'
 
     
     // https://mvnrepository.com/artifact/com.google.inject/guice
